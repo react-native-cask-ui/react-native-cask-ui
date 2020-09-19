@@ -1,8 +1,43 @@
 {
   "name": "react-native-cask-ui",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "azurechen <azure517981@gmail.com>",
+  "workspaces": {
+    "packages": [
+      "packages/**",
+      "storybook"
+    ]
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && tsc"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write -parser typescript",
+      "git add",
+      "eslint --cache"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react-native": "^3.9.1",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
+  },
   "license": "MIT",
   "private": true
 }
