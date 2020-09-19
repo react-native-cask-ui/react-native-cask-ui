@@ -1,0 +1,8 @@
+{
+  "name": "react-native-cask-ui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "azurechen <azure517981@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
