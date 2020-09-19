@@ -27,7 +27,7 @@ module.exports = config => {
   fs.readdirSync(packages)
     .filter(name => !name.startsWith('.'))
     .forEach(name => {
-      config.resolve.alias[`@amis-sdk/${name}`] = path.resolve(
+      config.resolve.alias[`@react-native-cask-ui/${name}`] = path.resolve(
         packages,
         name,
         // eslint-disable-next-line global-require, import/no-dynamic-require

@@ -21,8 +21,8 @@
       }
     },
     "import/core-modules": [
-      "@amis-sdk/core",
-      "@amis-sdk/browser"
+      "@react-native-cask-ui/core",
+      "@react-native-cask-ui/theme"
     ]
   },
   "rules": {
