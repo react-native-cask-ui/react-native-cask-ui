@@ -7,6 +7,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@react-native-cask-ui/core": "*",
     "@storybook/react": "^6.0.21",
     "@storybook/react-native": "^5.3.21",
     "expo": "~38.0.8",
@@ -14,7 +15,11 @@
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
-    "react-native-web": "~0.11.7"
+    "react-native-svg": "12.1.0",
+    "react-native-tab-view": "2.14.3",
+    "react-native-vector-icons": "^7.1.0",
+    "react-native-web": "~0.11.7",
+    "react-navigation": "^4.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

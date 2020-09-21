@@ -65,8 +65,10 @@
     "react/require-default-props": 0,
     "react/default-props-match-prop-types": 0,
     "react/jsx-props-no-spreading": 0,
+    "react/state-in-constructor": "off",
     "react-native/no-unused-styles": 2,
-    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }]
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "max-classes-per-file": "off"
   },
   "overrides": [
     {
