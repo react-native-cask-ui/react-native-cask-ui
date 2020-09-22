@@ -10,10 +10,13 @@
     "prepublishOnly": "npm run "
   },
   "dependencies": {
+    "react-content-loader": "^5.1.2",
     "react-native-draggable-flatlist": "^1.1.9",
     "react-native-safe-area-view": "^0.14.7",
+    "react-native-svg": "12.1.0",
+    "react-native-svg-web": "^1.0.9",
+    "react-native-tab-view": "2.14.3",
     "react-navigation-header-buttons": "^3.0.1",
-    "rn-content-loader": "https://github.com/kostimarko/rn-content-loader#2a98d3b",
     "shallow-equal": "^1.2.1",
     "utility-types": "^3.10.0"
   },
@@ -29,8 +32,8 @@
     "react": "*",
     "react-dom": "*",
     "react-native": "*",
-    "react-native-svg": "*",
-    "react-native-tab-view": "*",
+    "react-native-gesture-handler": "*",
+    "react-native-reanimated": "*",
     "react-native-vector-icons": "*",
     "react-navigation": "*"
   }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useMemo } from 'react';
+import React, { useContext, useEffect, useRef, useMemo, ReactNode } from 'react';
 /* @ts-ignore */
 import { shallowEqualObjects } from 'shallow-equal';
 
@@ -11,7 +11,16 @@ const defaultThemeResult: TTheme = {
   extra: {},
 };
 
-export const ThemeContext = React.createContext<TTheme>(defaultThemeResult);
+const ThemeContext = React.createContext<TTheme>(defaultThemeResult);
+
+type ThemeProviderProps = {
+  theme: TTheme;
+  children: ReactNode;
+};
+
+export const ThemeProvider = React.memo<ThemeProviderProps>(({ theme, children }) => (
+  <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
+));
 
 const usePrevious = (value: any) => {
   const ref = useRef();
@@ -43,24 +52,33 @@ export const useOverride = <TProps extends { [key: string]: any }>(
   const theme = useTheme();
   const { overrides } = theme;
 
-  const override = useMemo(() => overrides?.[componentName]?.[variant] || {}, [overrides, componentName, variant]);
-  let { props: newOverridedProps, styles: newOverridedStyles } = override;
+  const { props: defaultOverridedProps, styles: defaultOverridedStyles } = useMemo(
+    () => overrides?.[componentName]?.default || {},
+    [overrides, componentName],
+  );
+  const { props: variantOverridedProps, styles: variantOverridedStyles } = useMemo(
+    () => overrides?.[componentName]?.[variant] || {},
+    [overrides, componentName, variant],
+  );
 
   // combine default and variant overrides
-  if (variant !== 'default') {
-    const defaultOverride = overrides?.[componentName]?.default || {};
-    newOverridedProps = { ...defaultOverride.props, ...newOverridedProps };
+  const overridedProps = useMemo(() => {
+    if (variant === 'default') return defaultOverridedProps;
+    return { ...defaultOverridedProps, ...variantOverridedProps };
+  }, [defaultOverridedProps, variantOverridedProps]);
 
-    const styleKeys = [...Object.keys(defaultOverride.styles || {}), ...Object.keys(newOverridedStyles || {})];
-    newOverridedStyles = styleKeys.reduce((result, key) => {
-      /* @ts-ignore */
-      result[key] = { ...(defaultOverride.styles?.[key] || {}), ...(newOverridedStyles?.[key] || {}) };
+  const overridedStyles = useMemo(() => {
+    if (variant === 'default') return defaultOverridedStyles;
+
+    const styleKeys = [
+      // @ts-ignore
+      ...new Set([...Object.keys(defaultOverridedStyles || {}), ...Object.keys(variantOverridedStyles || {})]),
+    ];
+    return styleKeys.reduce<{ [key: string]: TStyle }>((result, key) => {
+      result[key] = [defaultOverridedStyles?.[key], variantOverridedStyles?.[key]];
       return result;
     }, {});
-  }
-
-  const overridedProps = useMemoObject(newOverridedProps);
-  const overridedStyles = useMemoObject(newOverridedStyles);
+  }, [defaultOverridedStyles, variantOverridedStyles]);
 
   const finalProps = useMemo(() => ({ ...overridedProps, ...otherProps }), [overridedProps, otherProps]);
   const finalStyles = useMemo(() => overridedStyles || {}, [overridedStyles]);

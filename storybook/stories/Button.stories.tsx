@@ -1,43 +1,46 @@
 import React from 'react';
+import { Button, ButtonProps } from '@react-native-cask-ui/core';
 import { Story, Meta } from '@storybook/react';
-
-import { Button, ButtonProps } from './Button';
+import Feather from 'react-native-vector-icons/Feather';
 
 export default {
   title: 'Example/Button',
   component: Button,
   argTypes: {
-    backgroundColor: { control: 'color' },
-    variant: {
-      control: {
-        hideNoControlsWarning: true,
-      },
-    },
+    variant: {},
+    icon: { control: { disable: true } },
+  },
+  args: {
+    title: 'Click Me',
   },
 } as Meta;
 
 const Template: Story<ButtonProps> = args => <Button {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  primary: true,
-  label: 'Button',
-  variant: 'primary',
+export const Basic = Template.bind({});
+Basic.storyName = 'Basic';
+Basic.args = {};
+
+export const Icon = Template.bind({});
+Icon.storyName = 'Basic with Icon';
+Icon.args = {
+  icon: <Feather name="search" size={18} color="white" />,
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Button',
+export const Disabled = Template.bind({});
+Disabled.storyName = 'Disabled';
+Disabled.args = {
+  disabled: true,
 };
 
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
+export const Outline = Template.bind({});
+Outline.storyName = 'Variant - Outline';
+Outline.args = {
+  variant: 'outline',
 };
 
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Button',
+export const Rounded = Template.bind({});
+Rounded.storyName = 'Variant - Rounded';
+Rounded.args = {
+  variant: 'rounded',
 };

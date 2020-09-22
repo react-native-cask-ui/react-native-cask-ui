@@ -28,14 +28,26 @@ const defaultStyles = StyleSheet.create({
   textDisabled: {},
 });
 
-export type ButtonProps = $Diff<TouchableOpacityProps, { style?: unknown; children?: unknown }> & {
+export interface ButtonProps extends $Diff<TouchableOpacityProps, { style?: unknown; children?: unknown }> {
+  /**
+   * The variant to use.
+   */
   variant?: string;
+  /**
+   * The icon beside the button title. Usually be placed on the left side.
+   */
   icon?: ReactNode;
+  /**
+   * The text content of the button.
+   */
   title?: string;
+  /**
+   * If `true`, the buton will be disabled.
+   */
   disabled?: boolean;
-};
+}
 
-export default React.memo<ButtonProps>(props => {
+const Button: React.FC<ButtonProps> = React.memo<ButtonProps>(props => {
   const { props: overridedProps, styles } = useOverride<ButtonProps>('Button', props);
   const { icon, title, disabled, ...otherProps } = overridedProps;
 
@@ -64,3 +76,7 @@ export default React.memo<ButtonProps>(props => {
     </View>
   );
 });
+
+Button.defaultProps = {};
+
+export default Button;

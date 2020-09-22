@@ -10,7 +10,7 @@ import {
   ImageURISource,
 } from 'react-native';
 /* @ts-ignore */
-import ContentLoader from 'rn-content-loader';
+import ContentLoader from 'react-content-loader';
 import { Path } from 'react-native-svg';
 // import * as Progress from 'react-native-progress';
 import { $Diff } from 'utility-types';
@@ -191,23 +191,23 @@ export default React.memo<TImageProps>(props => {
         <View style={fixedStyles.loadingWrapper}>
           {placeholderType === 'loader' && (
             <ContentLoader
-              primaryColor={loaderPrimaryColor || '#f7f7f7'}
-              secondaryColor={loaderSecondaryColor || '#e9e9e9'}
+              foregroundColor={loaderPrimaryColor || '#f7f7f7'}
+              backgroundColor={loaderSecondaryColor || '#e9e9e9'}
               width={newWidth}
               height={newHeight}
             >
               <Path d={`M0 0 h${newWidth || 0} v${newHeight || 0} h-${newWidth || 0}z`} />
               {/*
-           because of the following issue:
-           https://github.com/react-native-community/react-native-svg/issues/1127
-           cannot use Rect and should be replaced by Path temporarily
-          <Rect
-           x="0"
-           y="0"
-           width={wrapperWidth || width || placeholderWidth}
-           height={wrapperHeight || height || placeholderHeight}
-          />
-          */}
+              because of the following issue:
+              https://github.com/react-native-community/react-native-svg/issues/1127
+              cannot use Rect and should be replaced by Path temporarily
+              <Rect
+                x="0"
+                y="0"
+                width={wrapperWidth || width || placeholderWidth}
+                height={wrapperHeight || height || placeholderHeight}
+              />
+              */}
             </ContentLoader>
           )}
           {placeholderType === 'spinner' && <ActivityIndicator />}
