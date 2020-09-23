@@ -23,6 +23,9 @@
       "eslint --cache"
     ]
   },
+  "scripts": {
+    "storybook": "cd storybook && yarn storybook"
+  },
   "dependencies": {},
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.9.0",

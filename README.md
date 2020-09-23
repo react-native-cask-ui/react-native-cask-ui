@@ -1,5 +1,10 @@
 # react-native-cask-ui
 
+### Demo
+```
+$ yarn storybook
+```
+
 ### TODO
 1. **Storyboard:** Add storybook example for every ui components.
 2. **Hooks:** Replace class component by functional component with `React.memo`.
