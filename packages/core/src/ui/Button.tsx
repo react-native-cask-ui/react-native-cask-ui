@@ -42,7 +42,7 @@ export interface ButtonProps extends $Diff<TouchableOpacityProps, { style?: unkn
    */
   title?: string;
   /**
-   * If `true`, the buton will be disabled.
+   * If `true`, the buton is disabled.
    */
   disabled?: boolean;
 }

@@ -104,6 +104,42 @@ const overrides: TOverrideConfigs<unknown> = {
       }),
     },
   },
+  TextInput: {
+    default: {
+      props: {
+        placeholderTextColor: palette.placeholderTextColor,
+      },
+      styles: StyleSheet.create({
+        root: {
+          width: 300,
+        },
+        label: {
+          color: palette.highlightedTextColor,
+        },
+        textInput: {
+          color: palette.highlightedTextColor,
+          borderWidth: 1,
+          borderColor: palette.borderColor,
+          borderRadius: 4,
+          height: undefined,
+          paddingVertical: 8,
+        },
+        textInputDisabled: {
+          backgroundColor: palette.grayColor,
+        },
+      }),
+    },
+    underline: {
+      styles: StyleSheet.create({
+        textInput: {
+          borderWidth: 0,
+          borderBottomWidth: 1,
+          borderRadius: 0,
+          paddingVertical: 4,
+        },
+      }),
+    },
+  },
 
   Screen: {
     default: {
@@ -154,45 +190,6 @@ const overrides: TOverrideConfigs<unknown> = {
     },
   },
 
-  TextInput: {
-    default: {
-      props: {
-        placeholderTextColor: palette.placeholderTextColor,
-      },
-    },
-    item: {
-      styles: StyleSheet.create({
-        textInput: {
-          flex: 1,
-          height: undefined,
-          color: palette.highlightedTextColor,
-          paddingHorizontal: 0,
-          paddingVertical: 8,
-        },
-      }),
-    },
-    itemRight: {
-      styles: StyleSheet.create({
-        textInput: {
-          flex: 1,
-          height: undefined,
-          color: palette.highlightedTextColor,
-          paddingHorizontal: 0,
-          textAlign: 'right',
-        },
-      }),
-    },
-    review: {
-      styles: StyleSheet.create({
-        textInput: {
-          borderBottomWidth: 1,
-          borderBottomColor: palette.borderColor,
-          height: undefined,
-          paddingBottom: 4,
-        },
-      }),
-    },
-  },
   Badge: {
     default: {
       styles: StyleSheet.create({

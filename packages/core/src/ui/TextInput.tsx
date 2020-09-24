@@ -8,7 +8,7 @@ import {
   TextInputProps as OriginTextInputProps,
 } from 'react-native';
 
-import { useOverride, useMemoStyles } from '../theme';
+import { useOverride, useMemoStyles, TColor } from '../theme';
 
 const defaultStyles = StyleSheet.create({
   root: {
@@ -18,6 +18,7 @@ const defaultStyles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 19,
     paddingHorizontal: 8,
+    paddingBottom: 4,
   },
   textInput: {
     flex: 1,
@@ -30,15 +31,36 @@ const defaultStyles = StyleSheet.create({
   textInputDisabled: {},
 });
 
-export type TextInputProps = $Diff<OriginTextInputProps, { style?: unknown; children?: unknown }> & {
+export interface TextInputProps extends $Diff<OriginTextInputProps, { style?: unknown; children?: unknown }> {
+  /**
+   * The variant to use.
+   */
   variant?: string;
+  /**
+   * The label above the text input control.
+   */
   label?: string;
-  disabled?: boolean;
-};
+  /**
+   * The value to show for the text input.
+   */
+  value?: string;
+  /**
+   * The string that will be rendered before text input has been entered
+   */
+  placeholder?: string;
+  /**
+   * The text color of the placeholder string
+   */
+  placeholderTextColor?: TColor;
+  /**
+   * If `false`, the text is not editable.
+   */
+  editable?: boolean;
+}
 
-export default React.memo<TextInputProps>(props => {
+const TextInput: React.FC<TextInputProps> = React.memo<TextInputProps>(props => {
   const { props: overridedProps, styles } = useOverride('TextInput', props);
-  const { label, disabled, ...otherProps } = overridedProps;
+  const { label, editable, ...otherProps } = overridedProps;
 
   const finalStyle = useMemoStyles([defaultStyles.root, styles.root]);
   const finalLabelStyle = useMemoStyles([defaultStyles.label, styles.label]);
@@ -46,13 +68,24 @@ export default React.memo<TextInputProps>(props => {
   const finalTextInputStyle = useMemoStyles([
     defaultStyles.textInput,
     styles.textInput,
-    disabled ? finalTextInputDisabledStyle : null,
+    !editable ? finalTextInputDisabledStyle : null,
   ]);
 
   return (
     <View style={finalStyle}>
       {label && <Text style={finalLabelStyle}>{label}</Text>}
-      <OriginTextInput placeholderTextColor="#00000033" style={finalTextInputStyle} {...otherProps} />
+      <OriginTextInput
+        placeholderTextColor="#00000033"
+        style={finalTextInputStyle}
+        editable={editable}
+        {...otherProps}
+      />
     </View>
   );
 });
+
+TextInput.defaultProps = {
+  editable: true,
+};
+
+export default TextInput;

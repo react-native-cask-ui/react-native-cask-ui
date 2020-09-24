@@ -37,5 +37,5 @@ $ yarn storybook
 | Separator            |           | ✔️     | ✔️            | ✔️       |           |          |
 | Stack                |           |       |              | ✔️       |           |          |
 | Text                 | ✔️         | ✔️     | ✔️            | ✔️       | ✔️         |          |
-| TextInput            |           | ✔️     | ✔️            | ✔️       |           |          |
+| TextInput            | ✔️         | ✔️     | ✔️            | ✔️       | ✔️         |          |
 | Toolbar              |           | ✔️     | ✔️            | ✔️       |           |          |
