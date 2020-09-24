@@ -43,6 +43,67 @@ const overrides: TOverrideConfigs<unknown> = {
       }),
     },
   },
+  Text: {
+    h1: {
+      styles: StyleSheet.create({
+        text: {
+          color: palette.highlightedTextColor,
+          fontSize: 22,
+          marginTop: 18,
+          marginBottom: 10,
+          fontWeight: 'bold',
+        },
+      }),
+    },
+    h2: {
+      styles: StyleSheet.create({
+        text: {
+          color: palette.highlightedTextColor,
+          fontSize: 20,
+          marginTop: 16,
+          marginBottom: 10,
+          fontWeight: 'bold',
+        },
+      }),
+    },
+    h3: {
+      styles: StyleSheet.create({
+        text: {
+          color: palette.highlightedTextColor,
+          fontSize: 18,
+          marginTop: 14,
+          marginBottom: 10,
+          fontWeight: 'bold',
+        },
+      }),
+    },
+    content: {
+      styles: StyleSheet.create({
+        text: {
+          color: palette.textColor,
+          fontSize: 15,
+        },
+      }),
+    },
+    deletion: {
+      styles: StyleSheet.create({
+        text: {
+          color: palette.textColor,
+          fontSize: 15,
+          textDecorationLine: 'line-through',
+          textDecorationStyle: 'solid',
+        },
+      }),
+    },
+    tip: {
+      styles: StyleSheet.create({
+        text: {
+          color: palette.textColor,
+          fontSize: 12,
+        },
+      }),
+    },
+  },
 
   Screen: {
     default: {
@@ -92,396 +153,7 @@ const overrides: TOverrideConfigs<unknown> = {
       }),
     },
   },
-  Text: {
-    header: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 18,
-          marginTop: 12,
-          marginBottom: 10,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    summary: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 16,
-          marginBottom: 16,
-        },
-      }),
-    },
-    title: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 16,
-          fontWeight: 'bold',
-          fontVariant: ['tabular-nums'],
-        },
-      }),
-    },
-    titleDeletion: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 16,
-          textDecorationLine: 'line-through',
-          textDecorationStyle: 'solid',
-        },
-      }),
-    },
-    highlightTitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.primaryDeepColor,
-          fontSize: 16,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    lowlightTitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 16,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    searchBar: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.placeholderTextColor,
-          fontSize: 16,
-        },
-      }),
-    },
-    bannerTitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: 'black',
-          fontSize: 17,
-          fontWeight: 'bold',
-          marginBottom: 12,
-        },
-      }),
-    },
-    bannerContent: {
-      styles: StyleSheet.create({
-        text: {
-          color: 'black',
-          fontSize: 15,
-        },
-      }),
-    },
-    rowTitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 16,
-        },
-      }),
-    },
-    rowSubTitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 15,
-        },
-      }),
-    },
-    subtitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 15,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    label: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 14,
-        },
-      }),
-    },
-    content: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 14,
-        },
-      }),
-    },
-    contentDeletion: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 14,
-          textDecorationLine: 'line-through',
-          textDecorationStyle: 'solid',
-        },
-      }),
-    },
-    highlightContent: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 14,
-        },
-      }),
-    },
-    highlightPrimaryContent: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.primaryDeepColor,
-          fontSize: 14,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    highlightSecondaryContent: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.secondaryColor,
-          fontSize: 14,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    select: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 15,
-        },
-      }),
-    },
-    slogan1: {
-      styles: StyleSheet.create({
-        text: {
-          color: 'white',
-          fontSize: 24,
-          paddingBottom: 12,
-          textAlign: 'right',
-        },
-      }),
-    },
-    slogan2: {
-      styles: StyleSheet.create({
-        text: {
-          color: 'white',
-          fontSize: 32,
-          textAlign: 'right',
-        },
-      }),
-    },
-    white: {
-      styles: StyleSheet.create({
-        text: {
-          color: 'white',
-          fontSize: 14,
-        },
-      }),
-    },
-    whiteUnderline: {
-      styles: StyleSheet.create({
-        text: {
-          color: 'white',
-          textDecorationLine: 'underline',
-          fontSize: 14,
-        },
-      }),
-    },
-    navTitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.navigationBarItemColor,
-          fontSize: 17,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    navSubtitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.navigationBarItemColor,
-          fontSize: 13,
-          marginTop: 2,
-        },
-      }),
-    },
-    servicePrice: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 16,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    serviceBanner: {
-      styles: StyleSheet.create({
-        text: {
-          color: 'white',
-          fontSize: 16,
-          fontWeight: 'bold',
-          textAlign: 'center',
-        },
-      }),
-    },
-    searchResultType: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.primaryDeepColor,
-          fontSize: 14,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    searchResultTitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 17,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    searchResultContent: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 15,
-        },
-      }),
-    },
-    searchResultLabel: {
-      styles: StyleSheet.create({
-        text: {
-          color: 'white',
-          fontSize: 14,
-          fontWeight: 'bold',
-          textAlign: 'center',
-        },
-      }),
-    },
-    recommendedType: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.primaryDeepColor,
-          fontSize: 13,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    recommendedTitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 15,
-          fontWeight: 'bold',
-        },
-      }),
-    },
-    recommendedLabel: {
-      styles: StyleSheet.create({
-        text: {
-          color: 'white',
-          fontSize: 13,
-          fontWeight: 'bold',
-          textAlign: 'center',
-        },
-      }),
-    },
-    chatTitle: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 15,
-          marginBottom: 4,
-        },
-      }),
-    },
-    chatMessage: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 14,
-        },
-      }),
-    },
-    chatDate: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 12,
-        },
-      }),
-    },
-    tip: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 13,
-        },
-      }),
-    },
-    tipWarning: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.warningColor,
-          fontSize: 13,
-        },
-      }),
-    },
-    tipDanger: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.dangerColor,
-          fontSize: 13,
-        },
-      }),
-    },
-    scheduleDate: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 24,
-        },
-      }),
-    },
-    scheduleWeek: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.textColor,
-          fontSize: 16,
-        },
-      }),
-    },
-    accountBalance: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.highlightedTextColor,
-          fontSize: 36,
-        },
-      }),
-    },
-    emptyText: {
-      styles: StyleSheet.create({
-        text: {
-          color: palette.placeholderTextColor,
-          fontSize: 18,
-          textAlign: 'center',
-        },
-      }),
-    },
-  },
+
   TextInput: {
     default: {
       props: {

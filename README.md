@@ -36,6 +36,6 @@ $ yarn storybook
 | SearchBar            |           | ✔️     | ✔️            | ✔️       |           | ✔️        |
 | Separator            |           | ✔️     | ✔️            | ✔️       |           |          |
 | Stack                |           |       |              | ✔️       |           |          |
-| Text                 |           | ✔️     |              | ✔️       |           |          |
+| Text                 | ✔️         | ✔️     | ✔️            | ✔️       | ✔️         |          |
 | TextInput            |           | ✔️     | ✔️            | ✔️       |           |          |
 | Toolbar              |           | ✔️     | ✔️            | ✔️       |           |          |

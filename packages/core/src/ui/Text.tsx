@@ -8,13 +8,22 @@ const defaultStyles = StyleSheet.create({
   text: {},
 });
 
-export type TextProps = $Diff<OriginTextProps, { style?: unknown }> & {
+export interface TextProps extends $Diff<OriginTextProps, { style?: unknown }> {
+  /**
+   * The variant to use.
+   */
   variant?: string;
+  /**
+   * The text alignment.
+   */
   textAlign?: 'left' | 'center' | 'right';
+  /**
+   * The text to display or nested Text components
+   */
   children: ReactNode;
-};
+}
 
-export default React.memo<TextProps>(props => {
+const Text: React.FC<TextProps> = React.memo<TextProps>(props => {
   const { props: overridedProps, styles } = useOverride('Text', props);
   const { textAlign, children, ...otherProps } = overridedProps;
 
@@ -33,8 +42,13 @@ export default React.memo<TextProps>(props => {
 
   return (
     <OriginText style={finalTextStyle} {...otherProps}>
-      {/* @ts-ignore */}
       {children}
     </OriginText>
   );
 });
+
+Text.defaultProps = {
+  textAlign: 'left',
+};
+
+export default Text;
