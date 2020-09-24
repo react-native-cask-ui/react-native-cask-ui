@@ -77,6 +77,8 @@ const Button: React.FC<ButtonProps> = React.memo<ButtonProps>(props => {
   );
 });
 
-Button.defaultProps = {};
+Button.defaultProps = {
+  disabled: false,
+};
 
 export default Button;
