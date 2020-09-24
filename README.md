@@ -15,27 +15,27 @@ $ yarn storybook
 
 |                      | Storybook | Hooks | useMemoStyle | Remove T | Interface | Renderer |
 | -------------------- | :-------: | :---: | :----------: | :------: | :-------: | :------: |
-| Alert                |           | ✔️     |              |         |           |          |
-| Badge                |           | ✔️     |              |         |           |          |
-| Button               | ✔️         | ✔️     | ✔️            | ✔️       | ✔️         |          |
-| Card                 |           | ✔️     | ✔️            | ✔️       |           |          |
-| Flex                 |           | ✔️     | ✔️            | ✔️       |           |          |
-| HeaderButtons        |           | ✔️     |              | ✔️       |           |          |
-| KeyboardAvoidingView |           | ✔️     |              | ✔️       |           |          |
-| Image                |           | ✔️     |              |         |           |          |
-| InputSpinner         |           | ✔️     | ✔️            |         |           |          |
-| List                 |           | ✔️     |              |         |           |          |
-| ListItem             |           | ✔️     | ✔️            | ✔️       |           |          |
-| LoadingSpinner       |           | ✔️     |              | ✔️       |           | ✔️        |
-| Modal                |           | ✔️     |              |         |           |          |
-| Pager                |           | ✔️     |              | ✔️       |           |          |
-| PagerConfig          |           | ✔️     |              | ✔️       |           |          |
-| Rating               |           | ✔️     | ✔️            | ✔️       |           |          |
-| ReadMore             |           | ✔️     | ✔️            | ✔️       |           |          |
-| Screen               |           | ✔️     | ✔️            | ✔️       |           |          |
-| SearchBar            |           | ✔️     | ✔️            | ✔️       |           | ✔️        |
-| Separator            |           | ✔️     | ✔️            | ✔️       |           |          |
-| Stack                |           |       |              | ✔️       |           |          |
-| Text                 | ✔️         | ✔️     | ✔️            | ✔️       | ✔️         |          |
-| TextInput            | ✔️         | ✔️     | ✔️            | ✔️       | ✔️         |          |
-| Toolbar              |           | ✔️     | ✔️            | ✔️       |           |          |
+| Alert                | -         | ✔️     |              |          |           |          |
+| Badge                | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
+| Button               | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
+| Card                 |           | ✔️     | ✔️            | ✔️        |           |          |
+| Flex                 |           | ✔️     | ✔️            | ✔️        |           |          |
+| HeaderButtons        |           | ✔️     |              | ✔️        |           |          |
+| KeyboardAvoidingView | -         | ✔️     |              | ✔️        |           |          |
+| Image                |           | ✔️     |              |          |           |          |
+| InputSpinner         |           | ✔️     | ✔️            |          |           |          |
+| List                 |           | ✔️     |              |          |           |          |
+| ListItem             |           | ✔️     | ✔️            | ✔️        |           |          |
+| LoadingSpinner       |           | ✔️     |              | ✔️        |           | ✔️        |
+| Modal                |           | ✔️     |              |          |           |          |
+| Pager                |           | ✔️     |              | ✔️        |           |          |
+| PagerConfig          | -         | ✔️     |              | ✔️        |           |          |
+| Rating               |           | ✔️     | ✔️            | ✔️        |           |          |
+| ReadMore             |           | ✔️     | ✔️            | ✔️        |           |          |
+| Screen               | -         | ✔️     | ✔️            | ✔️        |           |          |
+| SearchBar            |           | ✔️     | ✔️            | ✔️        |           | ✔️        |
+| Separator            |           | ✔️     | ✔️            | ✔️        |           |          |
+| Stack                |           |       |              | ✔️        |           |          |
+| Text                 | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
+| TextInput            | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
+| Toolbar              |           | ✔️     | ✔️            | ✔️        |           |          |

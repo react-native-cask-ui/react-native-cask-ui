@@ -5,6 +5,32 @@ import { TOverrideConfigs } from '@react-native-cask-ui/core';
 import palette from './palette';
 
 const overrides: TOverrideConfigs<unknown> = {
+  Badge: {
+    default: {
+      props: {
+        color: palette.primaryColor,
+      },
+      styles: StyleSheet.create({
+        text: {
+          color: 'white',
+        },
+      }),
+    },
+    slim: {
+      styles: StyleSheet.create({
+        badge: {
+          borderRadius: 4,
+          paddingVertical: 2,
+          paddingHorizontal: 8,
+          marginRight: 4,
+          marginBottom: 4,
+        },
+        text: {
+          fontSize: 13,
+        },
+      }),
+    },
+  },
   Button: {
     default: {
       styles: StyleSheet.create({
@@ -185,61 +211,6 @@ const overrides: TOverrideConfigs<unknown> = {
           shadowOpacity: 0,
           shadowRadius: 0,
           elevation: 0,
-        },
-      }),
-    },
-  },
-
-  Badge: {
-    default: {
-      styles: StyleSheet.create({
-        root: {
-          backgroundColor: palette.primaryColor,
-        },
-        text: {
-          color: 'white',
-        },
-      }),
-    },
-    tagGray: {
-      styles: StyleSheet.create({
-        root: {
-          backgroundColor: palette.borderColor,
-          borderRadius: 4,
-        },
-        text: {
-          fontWeight: 'normal',
-        },
-      }),
-    },
-    certificate: {
-      styles: StyleSheet.create({
-        root: {
-          backgroundColor: palette.secondaryColor,
-          borderRadius: 4,
-          paddingVertical: 2,
-          paddingHorizontal: 8,
-          marginRight: 4,
-          marginBottom: 4,
-        },
-        text: {
-          // fontWeight: 'normal',
-          fontSize: 13,
-        },
-      }),
-    },
-    eventStatus: {
-      styles: StyleSheet.create({
-        root: {
-          borderRadius: 4,
-          paddingVertical: 2,
-          paddingHorizontal: 8,
-          position: 'absolute',
-          top: 8,
-          left: 8,
-        },
-        text: {
-          fontSize: 13,
         },
       }),
     },

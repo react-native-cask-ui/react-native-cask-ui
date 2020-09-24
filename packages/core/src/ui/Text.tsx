@@ -18,7 +18,7 @@ export interface TextProps extends $Diff<OriginTextProps, { style?: unknown }> {
    */
   textAlign?: 'left' | 'center' | 'right';
   /**
-   * The text to display or nested Text components
+   * The text to display or nested Text components.
    */
   children: ReactNode;
 }
