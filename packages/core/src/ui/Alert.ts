@@ -1,12 +1,12 @@
 import { Alert, AlertButton } from 'react-native';
 
-export type TAlertAction = {
+export interface AlertAction {
   text?: string;
   onPress?: () => void | Promise<void>;
   style?: 'default' | 'cancel' | 'destructive';
-};
+}
 
-export type TConfirmActions = {
+export interface ConfirmActions {
   positive?: {
     text?: string;
     onPress?: () => void | Promise<void>;
@@ -16,9 +16,9 @@ export type TConfirmActions = {
     text?: string;
     onPress?: () => void | Promise<void>;
   };
-};
+}
 
-export type TChooseActions = {
+export interface ChooseActions {
   options: Array<{
     text?: string;
     onPress?: () => void | Promise<void>;
@@ -27,13 +27,13 @@ export type TChooseActions = {
   cancel?: {
     text?: string;
   };
-};
+}
 
-const alert = (title: string, message?: string | null, action?: TAlertAction): void => {
+const alert = (title: string, message?: string | null, action?: AlertAction): void => {
   Alert.alert(title, message || undefined, action ? [action] : undefined, { cancelable: false });
 };
 
-const confirm = (title: string, message?: string | null, actions?: TConfirmActions): void => {
+const confirm = (title: string, message?: string | null, actions?: ConfirmActions): void => {
   const { positive, negative } = actions || {};
 
   Alert.alert(
@@ -55,7 +55,7 @@ const confirm = (title: string, message?: string | null, actions?: TConfirmActio
   );
 };
 
-const choose = (title: string, message?: string | null, actions?: TChooseActions): void => {
+const choose = (title: string, message?: string | null, actions?: ChooseActions): void => {
   const { options = [], cancel } = actions || {};
   const buttons: AlertButton[] = cancel
     ? [

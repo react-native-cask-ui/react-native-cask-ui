@@ -21,7 +21,7 @@ const defaultStyles = StyleSheet.create({
   },
 });
 
-export type ScreenProps = {
+export interface ScreenProps {
   variant?: string;
   padding?: boolean;
   topSafe?: boolean;
@@ -36,7 +36,7 @@ export type ScreenProps = {
     hidden?: boolean;
   };
   children: ReactNode;
-};
+}
 
 export default React.memo<ScreenProps>(props => {
   const { props: overridedProps, styles } = useOverride('Screen', props);

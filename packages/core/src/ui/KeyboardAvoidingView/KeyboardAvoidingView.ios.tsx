@@ -1,12 +1,10 @@
-import React, { ReactNode, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Keyboard, useWindowDimensions } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
 
-type Props = {
-  children: ReactNode;
-};
+import { KeyboardAvoidingViewProps } from './types';
 
-export default React.memo<Props>(props => {
+export default React.memo<KeyboardAvoidingViewProps>(props => {
   const { children } = props;
   const { width, height } = useWindowDimensions();
   const landscape = width > height;

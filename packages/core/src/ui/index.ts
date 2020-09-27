@@ -1,7 +1,11 @@
 export { default as Screen } from './Screen';
 
-export { default as SearchBar } from './SearchBar/SearchBar';
-export { default as LoadingSpinner } from './LoadingSpinner/LoadingSpinner';
+export { default as KeyboardAvoidingView } from './KeyboardAvoidingView';
+export * from './KeyboardAvoidingView';
+export { default as LoadingSpinner } from './LoadingSpinner';
+export * from './LoadingSpinner';
+export { default as SearchBar } from './SearchBar';
+export * from './SearchBar';
 
 export { default as Alert } from './Alert';
 export * from './Alert';
@@ -15,8 +19,6 @@ export { default as Flex } from './Flex';
 export * from './Flex';
 export { default as HeaderButtons } from './HeaderButtons';
 export * from './HeaderButtons';
-export { default as KeyboardAvoidingView } from './KeyboardAvoidingView';
-export * from './KeyboardAvoidingView';
 export { default as Image } from './Image';
 export * from './Image';
 export { default as InputSpinner } from './InputSpinner';
