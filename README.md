@@ -18,7 +18,7 @@ $ yarn storybook
 | Alert                | -         | ✔️     | -            | ✔️        | ✔️         |          |
 | Badge                | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | Button               | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
-| Card                 |           | ✔️     | ✔️            | ✔️        |           |          |
+| Card                 | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | Flex                 |           | ✔️     | ✔️            | ✔️        |           |          |
 | HeaderButtons        |           | ✔️     |              | ✔️        |           |          |
 | KeyboardAvoidingView | -         | ✔️     | -            | ✔️        | ✔️         | -        |

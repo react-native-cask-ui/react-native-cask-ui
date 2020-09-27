@@ -69,6 +69,22 @@ const overrides: TOverrideConfigs<unknown> = {
       }),
     },
   },
+  Card: {
+    default: {
+      styles: StyleSheet.create({
+        root: {
+          borderRadius: 6,
+          shadowRadius: 6,
+          shadowOpacity: 0.6,
+          width: 300,
+        },
+        card: {
+          borderRadius: 6,
+          padding: 16,
+        },
+      }),
+    },
+  },
   Text: {
     h1: {
       styles: StyleSheet.create({
@@ -188,29 +204,6 @@ const overrides: TOverrideConfigs<unknown> = {
         },
         inner: {
           backgroundColor: palette.primaryBgColor,
-        },
-      }),
-    },
-  },
-  Card: {
-    default: {
-      styles: StyleSheet.create({
-        root: {
-          borderRadius: 6,
-          shadowRadius: 6,
-          elevation: 12,
-        },
-        card: {
-          borderRadius: 6,
-        },
-      }),
-    },
-    searchBar: {
-      styles: StyleSheet.create({
-        root: {
-          shadowOpacity: 0,
-          shadowRadius: 0,
-          elevation: 0,
         },
       }),
     },

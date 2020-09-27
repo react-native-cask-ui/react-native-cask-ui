@@ -23,10 +23,16 @@ const defaultStyles = StyleSheet.create({
   },
 });
 
-export type CardProps = {
+export interface CardProps {
+  /**
+   * The variant to use.
+   */
   variant?: string;
+  /**
+   * Anything inside the card.
+   */
   children: ReactNode;
-};
+}
 
 export default React.memo<CardProps>(props => {
   const { props: overridedProps, styles } = useOverride('Card', props);
