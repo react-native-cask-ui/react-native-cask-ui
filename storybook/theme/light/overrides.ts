@@ -89,6 +89,7 @@ const overrides: TOverrideConfigs<unknown> = {
     h1: {
       styles: StyleSheet.create({
         text: {
+          display: 'flex',
           color: palette.highlightedTextColor,
           fontSize: 22,
           marginTop: 18,
@@ -100,6 +101,7 @@ const overrides: TOverrideConfigs<unknown> = {
     h2: {
       styles: StyleSheet.create({
         text: {
+          display: 'flex',
           color: palette.highlightedTextColor,
           fontSize: 20,
           marginTop: 16,
@@ -111,6 +113,7 @@ const overrides: TOverrideConfigs<unknown> = {
     h3: {
       styles: StyleSheet.create({
         text: {
+          display: 'flex',
           color: palette.highlightedTextColor,
           fontSize: 18,
           marginTop: 14,

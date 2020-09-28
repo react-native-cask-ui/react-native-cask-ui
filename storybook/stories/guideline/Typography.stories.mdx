@@ -1,0 +1,31 @@
+import { Text, TextProps } from '@react-native-cask-ui/core';
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guideline/Typography" />
+
+export const LONG_TEXT =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+export const SHORT_TEXT = 'Lorem ipsum';
+
+# Headings
+
+<Canvas>
+  <Story name="Headings">
+    <Text variant="h1">H1 - {SHORT_TEXT}</Text>
+    <Text variant="h2">H2 - {SHORT_TEXT}</Text>
+    <Text variant="h3">H3 - {SHORT_TEXT}</Text>
+  </Story>
+</Canvas>
+
+# Contents
+
+<Canvas>
+  <Story name="Contents">
+    <Text variant="h3">Content</Text>
+    <Text variant="content">{LONG_TEXT}</Text>
+    <Text variant="h3">Deletion</Text>
+    <Text variant="deletion">{LONG_TEXT}</Text>
+    <Text variant="h3">Tip</Text>
+    <Text variant="tip">{LONG_TEXT}</Text>
+  </Story>
+</Canvas>
