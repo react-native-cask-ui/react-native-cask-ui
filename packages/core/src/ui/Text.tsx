@@ -47,8 +47,4 @@ const Text: React.FC<TextProps> = React.memo<TextProps>(props => {
   );
 });
 
-Text.defaultProps = {
-  textAlign: 'left',
-};
-
 export default Text;

@@ -51,6 +51,4 @@ const Badge: React.FC<BadgeProps> = React.memo<BadgeProps>(props => {
   );
 });
 
-Badge.defaultProps = {};
-
 export default Badge;

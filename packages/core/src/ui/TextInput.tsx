@@ -84,8 +84,4 @@ const TextInput: React.FC<TextInputProps> = React.memo<TextInputProps>(props => 
   );
 });
 
-TextInput.defaultProps = {
-  editable: true,
-};
-
 export default TextInput;

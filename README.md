@@ -39,3 +39,15 @@ $ yarn storybook
 | Text                 | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | TextInput            | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | Toolbar              |           | ✔️     | ✔️            | ✔️        |           |          |
+
+### Why need to separate Component and Renderer?
+
+Only the Renderer can be assigned default props. If assign default props to the UI component. It will break the order of overridding.
+
+**The props order to be took effect**
+User Assigned Props (UI Component) > Overridded Props (UI Component) > Default Props (Renderer)
+
+**If no Renderer**
+User Assigned Props (UI Component) > `Default Props (UI Component)` > Overridded Props (UI Component)
+
+And it is wrong.
