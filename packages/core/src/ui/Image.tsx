@@ -2,20 +2,19 @@ import React, { useCallback, useState, ReactNode, useMemo } from 'react';
 import {
   StyleSheet,
   View,
-  Image,
-  ImageProps,
+  Image as OriginImage,
+  ImageProps as OriginImageProps,
   LayoutChangeEvent,
   ActivityIndicator,
   ImageSourcePropType,
   ImageURISource,
 } from 'react-native';
-/* @ts-ignore */
 import ContentLoader from 'react-content-loader';
 import { Path } from 'react-native-svg';
 // import * as Progress from 'react-native-progress';
 import { $Diff } from 'utility-types';
 
-import { useOverride, TColor } from '../theme';
+import { useOverride, useMemoStyles, TColor } from '../theme';
 
 const defaultStyles = StyleSheet.create({
   root: {
@@ -43,26 +42,62 @@ const fixedStyles = StyleSheet.create({
   },
 });
 
-export type TImageProps = $Diff<ImageProps, { source: ImageSourcePropType }> & {
+export interface ImageProps extends $Diff<OriginImageProps, { source: ImageSourcePropType }> {
   ImageRenderer?: ReactNode;
-  source: ImageSourcePropType;
+  /**
+   * The variant to use.
+   */
   variant?: string;
+  /**
+   * The image element or remote url.
+   */
+  source: ImageSourcePropType;
+  /**
+   * If `true`, the image size will fill the parent container.
+   */
   fill?: boolean;
+  /**
+   * The width of the image. If `undefined`, the image width will equal to the parent container.
+   */
   width?: number;
+  /**
+   * The height of the image. If `undefined`, the image height will equal to the parent container.
+   */
   height?: number;
+  /**
+   * The default width of the placeholder.
+   */
   placeholderWidth?: number;
+  /**
+   * The default height of the placeholder.
+   */
   placeholderHeight?: number;
-  retryable?: boolean;
+  /**
+   * The type of placeholder.
+   */
   placeholderType?: 'loader' | 'spinner' | 'progress';
+  /**
+   * If `true`, the image will keep trying to load the source.
+   */
+  retryable?: boolean;
+  /**
+   * The primary color of the loader type placeholder.
+   */
   loaderPrimaryColor?: TColor;
+  /**
+   * The secondary color of the loader type placeholder.
+   */
   loaderSecondaryColor?: TColor;
+  /**
+   * The color of the progress type placeholder.
+   */
   progressColor?: TColor;
-};
+}
 
-export default React.memo<TImageProps>(props => {
-  const { props: overridedProps, styles } = useOverride<TImageProps>('Image', props);
+const Image: React.FC<ImageProps> = React.memo<ImageProps>(props => {
+  const { props: overridedProps, styles } = useOverride<ImageProps>('Image', props);
   const {
-    ImageRenderer = Image,
+    ImageRenderer = OriginImage,
     source,
     fill,
     width,
@@ -74,6 +109,8 @@ export default React.memo<TImageProps>(props => {
     loaderPrimaryColor,
     loaderSecondaryColor,
     // progressColor,
+    onLoad,
+    onError,
     ...otherProps
   } = overridedProps;
 
@@ -103,26 +140,36 @@ export default React.memo<TImageProps>(props => {
     [placeholderType, progress],
   );
 
-  const handleLoad = useCallback(e => {
-    const { width: sourceWidth, height: sourceHeight } = e.nativeEvent.source || {};
-    setLoading(false);
-    setRealWidth(sourceWidth);
-    setRealHeight(sourceHeight);
-  }, []);
+  const handleLoad = useCallback(
+    e => {
+      if (onLoad) onLoad(e);
 
-  const handleError = useCallback(() => {
-    setLoading(true);
-    setWaiting(true);
+      const { width: sourceWidth, height: sourceHeight } = e.nativeEvent.source || {};
+      setLoading(false);
+      setRealWidth(sourceWidth);
+      setRealHeight(sourceHeight);
+    },
+    [onLoad],
+  );
 
-    if (retry < 30) {
-      setTimeout(() => {
-        // reload and reset progress
-        setRetry(retry + 1);
-        setWaiting(false);
-        setProgress(0);
-      }, 2000);
-    }
-  }, [retry]);
+  const handleError = useCallback(
+    error => {
+      if (onError) onError(error);
+
+      setLoading(true);
+      setWaiting(true);
+
+      if (retry < 30) {
+        setTimeout(() => {
+          // reload and reset progress
+          setRetry(retry + 1);
+          setWaiting(false);
+          setProgress(0);
+        }, 2000);
+      }
+    },
+    [onError, retry],
+  );
 
   const handleLayout = useCallback((event: LayoutChangeEvent) => {
     const { width: sourceWidth, height: sourceHeight } = event.nativeEvent.layout;
@@ -131,14 +178,18 @@ export default React.memo<TImageProps>(props => {
   }, []);
 
   // render
-  const finalStyle = [defaultStyles.root, styles.root];
-  const finalImageStyle = [defaultStyles.image, styles.image];
-
-  const wrapperStyle = {
-    flex: fill ? 1 : undefined,
-    width: width || (height && realWidth && realHeight ? (realWidth / realHeight) * height : null) || placeholderWidth,
-    height: height || (width && realHeight && realWidth ? (realHeight / realWidth) * width : null) || placeholderHeight,
-  };
+  const wrapperStyle = useMemo(
+    () => ({
+      flex: fill ? 1 : undefined,
+      width:
+        width || (height && realWidth && realHeight ? (realWidth / realHeight) * height : null) || placeholderWidth,
+      height:
+        height || (width && realHeight && realWidth ? (realHeight / realWidth) * width : null) || placeholderHeight,
+    }),
+    [fill, width, height, realWidth, realHeight, placeholderWidth, placeholderHeight],
+  );
+  const finalStyle = useMemoStyles([defaultStyles.root, styles.root, wrapperStyle]);
+  const finalImageStyle = useMemoStyles([defaultStyles.image, styles.image]);
 
   // use different uri to clear cache on Android.
   // cache may cause onError loop infinitely.
@@ -171,7 +222,7 @@ export default React.memo<TImageProps>(props => {
   }
 
   return (
-    <View style={[finalStyle, wrapperStyle]} onLayout={handleLayout}>
+    <View style={finalStyle} onLayout={handleLayout}>
       {!waiting && (
         /* @ts-ignore */
         <ImageRenderer
@@ -179,9 +230,9 @@ export default React.memo<TImageProps>(props => {
           source={newSource}
           onProgress={handleProgress}
           {...otherProps}
+          onLoad={handleLoad}
           {...(retryable
             ? {
-                onLoad: handleLoad,
                 onError: handleError,
               }
             : {})}
@@ -221,3 +272,5 @@ export default React.memo<TImageProps>(props => {
     </View>
   );
 });
+
+export default Image;

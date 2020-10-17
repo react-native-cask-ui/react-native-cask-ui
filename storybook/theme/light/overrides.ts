@@ -85,6 +85,34 @@ const overrides: TOverrideConfigs<unknown> = {
       }),
     },
   },
+  Image: {
+    default: {
+      props: {
+        retryable: true,
+        placeholderType: 'loader',
+        progressColor: palette.secondaryColor,
+      },
+    },
+    circle: {
+      styles: StyleSheet.create({
+        root: {
+          overflow: 'hidden',
+          borderRadius: 200,
+        },
+      }),
+    },
+    circleOutline: {
+      styles: StyleSheet.create({
+        root: {
+          backgroundColor: 'white',
+          borderColor: 'white',
+          borderWidth: 3,
+          overflow: 'hidden',
+          borderRadius: 200,
+        },
+      }),
+    },
+  },
   Text: {
     h1: {
       styles: StyleSheet.create({
@@ -224,50 +252,7 @@ const overrides: TOverrideConfigs<unknown> = {
       },
     },
   },
-  Image: {
-    default: {
-      props: {
-        retryable: true,
-        placeholderType: 'loader',
-        progressColor: palette.secondaryColor,
-      },
-    },
-    circle: {
-      styles: StyleSheet.create({
-        root: {
-          overflow: 'hidden',
-          borderRadius: 200,
-        },
-      }),
-    },
-    circleOutline: {
-      styles: StyleSheet.create({
-        root: {
-          backgroundColor: 'white',
-          borderColor: 'white',
-          borderWidth: 3,
-          overflow: 'hidden',
-          borderRadius: 200,
-        },
-      }),
-    },
-    servicePreview: {
-      styles: StyleSheet.create({
-        root: {
-          overflow: 'hidden',
-          borderRadius: 4,
-        },
-      }),
-    },
-    story: {
-      styles: StyleSheet.create({
-        root: {
-          overflow: 'hidden',
-          borderRadius: 8,
-        },
-      }),
-    },
-  },
+
   InputSpinner: {
     default: {
       props: {

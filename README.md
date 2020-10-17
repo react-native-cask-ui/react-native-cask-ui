@@ -22,7 +22,7 @@ $ yarn storybook
 | Flex                 |           | ✔️     | ✔️            | ✔️        |           |          |
 | HeaderButtons        |           | ✔️     |              | ✔️        |           |          |
 | KeyboardAvoidingView | -         | ✔️     | -            | ✔️        | ✔️         | -        |
-| Image                |           | ✔️     |              |          |           |          |
+| Image                | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | InputSpinner         |           | ✔️     | ✔️            |          |           |          |
 | List                 |           | ✔️     |              |          |           |          |
 | ListItem             |           | ✔️     | ✔️            | ✔️        |           |          |
