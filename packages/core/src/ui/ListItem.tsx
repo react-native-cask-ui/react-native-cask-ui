@@ -123,7 +123,7 @@ export type ListItemProps = {
   placeholder?: string;
   inputUnit?: string;
   keyboardType?: KeyboardTypeOptions;
-  value?: string | boolean;
+  value?: any;
   onValueChange?: (value: string | boolean) => void;
   // accessory
   accessoryType?: AccessoryType;

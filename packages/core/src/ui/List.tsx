@@ -45,36 +45,31 @@ const defaultStyles = StyleSheet.create({
   itemSeparatorInset: {},
 });
 
-export type TSectionData =
-  | SectionListData<unknown>
+export type TSectionData<ItemT> =
+  | SectionListData<ItemT>
   | {
       headerTitle?: string;
       headerView?: ReactNode;
       footerTitle?: string;
       footerView?: ReactNode;
-      data: unknown[];
+      data: ItemT[];
       tag?: string;
-    };
+    }
+  | null;
 
-export type TListProps = {
+export type TListProps<ItemT> = {
   variant?: string;
   sectionType: 'plain' | 'grouped';
   draggable?: boolean;
-  renderSectionHeader?: (
-    info: { section: SectionListData<unknown> },
-    sectionHeader: ReactElement,
-  ) => ReactElement | null;
-  renderSectionFooter?: (
-    info: { section: SectionListData<unknown> },
-    sectionFooter: ReactElement,
-  ) => ReactElement | null;
-  renderItem: SectionListRenderItem<unknown> | ListRenderItem<unknown>;
+  renderSectionHeader?: (info: { section: SectionListData<ItemT> }, sectionHeader: ReactElement) => ReactElement | null;
+  renderSectionFooter?: (info: { section: SectionListData<ItemT> }, sectionFooter: ReactElement) => ReactElement | null;
+  renderItem: SectionListRenderItem<ItemT> | ListRenderItem<ItemT>;
   keyExtractor: (item: any, index: number) => string;
   extraData?: unknown;
   initialScrollIndex?: number;
-  ListEmptyComponent?: ReactNode | null;
-  sections?: (TSectionData | null)[] | null;
-  data?: unknown[] | null;
+  ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null;
+  sections?: TSectionData<ItemT>[] | null;
+  data?: ItemT[] | null;
   contentContainerStyle?: TStyle;
   scrollEnabled?: boolean;
   // draggable
@@ -83,158 +78,149 @@ export type TListProps = {
   onMoveBegin?: (index: number) => void;
 };
 
-const List = React.memo<TListProps>(
-  React.forwardRef((props, ref) => {
-    const { props: overridedProps, styles } = useOverride<TListProps>('List', props);
-    const {
-      contentContainerStyle,
-      sectionType,
-      draggable,
-      sections,
-      data,
-      renderSectionHeader: originRenderSectionHeader,
-      renderSectionFooter: originRenderSectionFooter,
-      ...otherProps
-    } = overridedProps;
+function ListBase<ItemT>(props: TListProps<ItemT>, ref: any) {
+  const { props: overridedProps, styles } = useOverride<TListProps<ItemT>>('List', props);
+  const {
+    contentContainerStyle,
+    sectionType = 'plain',
+    draggable,
+    sections,
+    data,
+    renderSectionHeader: originRenderSectionHeader,
+    renderSectionFooter: originRenderSectionFooter,
+    ...otherProps
+  } = overridedProps;
 
-    const renderSectionHeader = useCallback(
-      ({ section }: { section: TSectionData }) => {
-        if (section.headerView) return section.headerView;
+  const renderSectionHeader = useCallback(
+    ({ section }) => {
+      if (section.headerView) return section.headerView;
 
-        const finalGroupedHeaderTextStyle = [defaultStyles.groupedHeaderText, styles.groupedHeaderText];
-        const finalPlainHeaderTextStyle = [defaultStyles.plainHeaderText, styles.plainHeaderText];
-        const finalSectionSeparatorStyle = [defaultStyles.sectionSeparator, styles.sectionSeparator];
-
-        let sectionHeader = <View style={{ height: 32 }} />;
-
-        if (sectionType === 'grouped' && section.headerTitle) {
-          sectionHeader = (
-            <View>
-              <Text style={finalGroupedHeaderTextStyle}>{section.headerTitle}</Text>
-            </View>
-          );
-        }
-
-        if (sectionType === 'plain') {
-          if (!section.headerTitle) {
-            sectionHeader = <View style={finalSectionSeparatorStyle} />;
-          }
-          sectionHeader = (
-            <View style={{ marginTop: -1 }}>
-              <View style={finalSectionSeparatorStyle} />
-              <Text style={finalPlainHeaderTextStyle}>{section.headerTitle}</Text>
-              <View style={finalSectionSeparatorStyle} />
-            </View>
-          );
-        }
-
-        return originRenderSectionHeader ? originRenderSectionHeader({ section }, sectionHeader) : sectionHeader;
-      },
-      [originRenderSectionHeader],
-    );
-
-    const renderSectionFooter = useCallback(
-      ({ section }: { section: TSectionData }) => {
-        if (section.footerView) return section.footerView;
-
-        const finalGroupedFooterTextStyle = [defaultStyles.groupedFooterText, styles.groupedFooterText];
-
-        let sectionFooter = <View style={{ height: 0 }} />;
-
-        if (sectionType === 'grouped' && section.footerTitle) {
-          sectionFooter = (
-            <View>
-              <Text style={finalGroupedFooterTextStyle}>{section.footerTitle}</Text>
-            </View>
-          );
-        }
-
-        return originRenderSectionFooter ? originRenderSectionFooter({ section }, sectionFooter) : sectionFooter;
-      },
-      [originRenderSectionFooter],
-    );
-
-    const renderSectionSeparator = useCallback(() => {
+      const finalGroupedHeaderTextStyle = [defaultStyles.groupedHeaderText, styles.groupedHeaderText];
+      const finalPlainHeaderTextStyle = [defaultStyles.plainHeaderText, styles.plainHeaderText];
       const finalSectionSeparatorStyle = [defaultStyles.sectionSeparator, styles.sectionSeparator];
 
-      return <View style={finalSectionSeparatorStyle} />;
-    }, []);
+      let sectionHeader = <View style={{ height: 32 }} />;
 
-    const renderItemSeparator = useCallback(() => {
-      const finalItemSeparatorStyle = [defaultStyles.itemSeparator, styles.itemSeparator];
-      const finalItemSeparatorInsetStyle = [defaultStyles.itemSeparatorInset, styles.itemSeparatorInset];
+      if (sectionType === 'grouped' && section.headerTitle) {
+        sectionHeader = (
+          <View>
+            <Text style={finalGroupedHeaderTextStyle}>{section.headerTitle}</Text>
+          </View>
+        );
+      }
 
-      return (
-        <View style={finalItemSeparatorInsetStyle}>
-          <View style={finalItemSeparatorStyle} />
-        </View>
-      );
-    }, []);
+      if (sectionType === 'plain') {
+        if (!section.headerTitle) {
+          sectionHeader = <View style={finalSectionSeparatorStyle} />;
+        }
+        sectionHeader = (
+          <View style={{ marginTop: -1 }}>
+            <View style={finalSectionSeparatorStyle} />
+            <Text style={finalPlainHeaderTextStyle}>{section.headerTitle}</Text>
+            <View style={finalSectionSeparatorStyle} />
+          </View>
+        );
+      }
 
-    // render
-    if (sections) {
-      // remove empty section or data
-      const newSections = sections
-        .filter(section => !!section)
-        .map(section => {
-          const { data: sd, ...others } = section || {};
-          return {
-            ...others,
-            data: (sd || []).filter(d => !!d),
-          };
-        });
+      return originRenderSectionHeader ? originRenderSectionHeader({ section }, sectionHeader) : sectionHeader;
+    },
+    [originRenderSectionHeader],
+  );
 
-      return (
-        <SectionList
-          sections={newSections}
-          stickySectionHeadersEnabled={sectionType === 'plain'}
-          renderSectionHeader={renderSectionHeader}
-          renderSectionFooter={renderSectionFooter}
-          SectionSeparatorComponent={sectionType === 'plain' ? null : renderSectionSeparator}
-          ItemSeparatorComponent={renderItemSeparator}
-          contentContainerStyle={[
-            sectionType === 'grouped'
-              ? {
-                  paddingBottom: 64,
-                }
-              : {},
-            contentContainerStyle,
-          ]}
-          {...otherProps}
-          /* @ts-ignore */
-          ref={ref}
-        />
-      );
-    }
+  const renderSectionFooter = useCallback(
+    ({ section }: { section: TSectionData<ItemT> }) => {
+      if (!section) return null;
+      if (section.footerView) return section.footerView;
 
-    if (data) {
-      // remove empty data
-      const newData = data.filter(d => !!d);
-      const FlatListRenderer = draggable ? DraggableFlatList : FlatList;
+      const finalGroupedFooterTextStyle = [defaultStyles.groupedFooterText, styles.groupedFooterText];
 
-      return (
-        /* @ts-ignore */
-        <FlatListRenderer
-          data={newData}
-          ItemSeparatorComponent={renderItemSeparator}
-          contentContainerStyle={contentContainerStyle}
-          {...otherProps}
-          ref={ref}
-        />
-      );
-    }
+      let sectionFooter = <View style={{ height: 0 }} />;
 
-    return null;
-  }),
-);
+      if (sectionType === 'grouped' && section.footerTitle) {
+        sectionFooter = (
+          <View>
+            <Text style={finalGroupedFooterTextStyle}>{section.footerTitle}</Text>
+          </View>
+        );
+      }
 
-/* @ts-ignore */
-List.defaultProps = {
-  disabled: false,
-  itemType: 'default',
-  accessoryType: 'none',
-  allowsSelection: true,
-  sectionType: 'plain',
-};
+      return originRenderSectionFooter ? originRenderSectionFooter({ section }, sectionFooter) : sectionFooter;
+    },
+    [originRenderSectionFooter],
+  );
+
+  const renderSectionSeparator = useCallback(() => {
+    const finalSectionSeparatorStyle = [defaultStyles.sectionSeparator, styles.sectionSeparator];
+
+    return <View style={finalSectionSeparatorStyle} />;
+  }, []);
+
+  const renderItemSeparator = useCallback(() => {
+    const finalItemSeparatorStyle = [defaultStyles.itemSeparator, styles.itemSeparator];
+    const finalItemSeparatorInsetStyle = [defaultStyles.itemSeparatorInset, styles.itemSeparatorInset];
+
+    return (
+      <View style={finalItemSeparatorInsetStyle}>
+        <View style={finalItemSeparatorStyle} />
+      </View>
+    );
+  }, []);
+
+  // render
+  if (sections) {
+    // remove empty section or data
+    const newSections = sections
+      .filter(section => !!section)
+      .map(section => {
+        const { data: sd, ...others } = section || {};
+        return {
+          ...others,
+          data: (sd || []).filter(d => !!d),
+        };
+      });
+
+    return (
+      <SectionList
+        sections={newSections}
+        stickySectionHeadersEnabled={sectionType === 'plain'}
+        renderSectionHeader={renderSectionHeader}
+        renderSectionFooter={renderSectionFooter}
+        SectionSeparatorComponent={sectionType === 'plain' ? null : renderSectionSeparator}
+        ItemSeparatorComponent={renderItemSeparator}
+        contentContainerStyle={[
+          sectionType === 'grouped'
+            ? {
+                paddingBottom: 64,
+              }
+            : {},
+          contentContainerStyle,
+        ]}
+        {...otherProps}
+        ref={ref}
+      />
+    );
+  }
+
+  if (data) {
+    // remove empty data
+    const newData = data.filter(d => !!d);
+    const FlatListRenderer = draggable ? DraggableFlatList : FlatList;
+
+    return (
+      /* @ts-ignore */
+      <FlatListRenderer
+        data={newData}
+        ItemSeparatorComponent={renderItemSeparator}
+        contentContainerStyle={contentContainerStyle}
+        {...otherProps}
+        ref={ref}
+      />
+    );
+  }
+
+  return null;
+}
+
+const List = React.memo(React.forwardRef(ListBase)) as typeof ListBase;
 
 export default List;
