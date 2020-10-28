@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
-import { TOverrideConfigs } from '@react-native-cask-ui/core';
+import { Overrides } from '@react-native-cask-ui/core';
 
 import palette from './palette';
 
-const overrides: TOverrideConfigs<unknown> = {
+const overrides: Overrides<unknown> = {
   Badge: {
     default: {
       props: {

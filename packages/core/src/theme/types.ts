@@ -26,17 +26,17 @@ export type TOverrideConfig<TProps> = {
   };
 };
 
-export type TOverrideConfigs<TProps> = {
+export type Overrides<TProps> = {
   [componentName: string]: {
     [variantName: string]: TOverrideConfig<TProps>;
   };
 };
 
-export type TTheme = {
+export type Theme = {
   name: string;
   palette: TPalette;
-  overrides: TOverrideConfigs<unknown>;
-  extra: {
+  overrides: Overrides<unknown>;
+  extra?: {
     [key: string]: unknown;
   };
 };

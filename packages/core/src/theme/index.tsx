@@ -2,19 +2,19 @@ import React, { useContext, useEffect, useRef, useMemo, ReactNode } from 'react'
 /* @ts-ignore */
 import { shallowEqualObjects } from 'shallow-equal';
 
-import { TStyle, TOverride, TTheme } from './types';
+import { TStyle, TOverride, Theme } from './types';
 
-const defaultThemeResult: TTheme = {
+const defaulThemeResult: Theme = {
   name: '',
   palette: {},
   overrides: {},
   extra: {},
 };
 
-const ThemeContext = React.createContext<TTheme>(defaultThemeResult);
+const ThemeContext = React.createContext<Theme>(defaulThemeResult);
 
 type ThemeProviderProps = {
-  theme: TTheme;
+  theme: Theme;
   children: ReactNode;
 };
 
@@ -37,7 +37,7 @@ const useMemoObject = (object: any) => {
   return object === prevObject || shallowEqualObjects(object, prevObject) ? prevObject : object;
 };
 
-export const useTheme = (): TTheme => {
+export const useTheme = (): Theme => {
   return useContext(ThemeContext);
 };
 
