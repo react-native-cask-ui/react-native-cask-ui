@@ -16,14 +16,14 @@ import { useOverride, TStyle } from '../theme';
 const defaultStyles = StyleSheet.create({
   groupedHeaderText: {
     paddingTop: 28,
-    paddingHorizontal: 12,
+    paddingHorizontal: 16,
     paddingBottom: 8,
     fontSize: 15,
     lineHeight: 20,
   },
   groupedFooterText: {
     paddingTop: 8,
-    paddingHorizontal: 12,
+    paddingHorizontal: 16,
     paddingBottom: 8,
     fontSize: 14,
     lineHeight: 19,
