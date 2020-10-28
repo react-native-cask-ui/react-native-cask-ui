@@ -1,6 +1,6 @@
 import React, { ReactNode, useMemo } from 'react';
 import { StyleSheet, View, StatusBar, StatusBarStyle } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import SafeAreaView from 'react-native-safe-area-view';
 
 import { useOverride, useMemoStyles } from '../theme';
 

@@ -34,7 +34,6 @@
     "react-native": "*",
     "react-native-gesture-handler": "*",
     "react-native-reanimated": "*",
-    "react-native-vector-icons": "*",
-    "react-navigation": "*"
+    "react-native-vector-icons": "*"
   }
 }
