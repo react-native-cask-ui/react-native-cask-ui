@@ -1,21 +1,19 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import SearchBarRenderer from './SearchBarRenderer';
 
 import { TSearchBarProps } from './types';
 
 export default React.memo<TSearchBarProps>(props => {
-  const { Renderer = SearchBarRenderer, value: defaultValue, onChangeText, onClear, ...otherProps } = props;
-  const [value, setValue] = useState(defaultValue || '');
+  const { Renderer = SearchBarRenderer, value, onChangeText, onClear, ...otherProps } = props;
 
   const handleChangeText = useCallback((text: string) => {
     if (onChangeText) onChangeText(text);
-    setValue(text);
   }, []);
 
   const handleClear = useCallback(() => {
+    if (onChangeText) onChangeText('');
     if (onClear) onClear();
-    setValue('');
   }, []);
 
   // render

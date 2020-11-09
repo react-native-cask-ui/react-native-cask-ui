@@ -15,15 +15,16 @@ const defaultStyles = StyleSheet.create({
     backgroundColor: '#EEE',
     flexDirection: 'row',
     flex: 1,
-    height: 34,
     borderRadius: 8,
     paddingHorizontal: 8,
     alignItems: 'center',
   },
   input: {
+    color: 'black',
     fontSize: 16,
     flex: 1,
     marginHorizontal: 8,
+    paddingVertical: 10,
   },
   cancelButton: {
     fontSize: 17,

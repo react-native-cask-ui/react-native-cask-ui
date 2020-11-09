@@ -17,10 +17,10 @@ const defaultStyles = StyleSheet.create({
     flex: 1,
     borderRadius: 2,
     paddingHorizontal: 16,
-    paddingVertical: 10,
     alignItems: 'center',
   },
   input: {
+    color: 'black',
     fontSize: 17,
     flex: 1,
     marginHorizontal: 20,
@@ -90,7 +90,9 @@ export default React.memo<TSearchBarRendererProps>(props => {
       <View style={finalInputContainerStyle}>
         <View style={fixedStyles.iconWrapper}>
           {focus ? (
-            <Ionicons name="md-arrow-back" size={23} color={searchIconColor} />
+            // TODO: should handle back event
+            // <Ionicons name="md-arrow-back" size={23} color={searchIconColor} />
+            <Ionicons name="md-search" size={23} color={searchIconColor} />
           ) : (
             <Ionicons name="md-search" size={23} color={searchIconColor} />
           )}
