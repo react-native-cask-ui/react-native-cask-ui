@@ -114,6 +114,9 @@ const Image: React.FC<ImageProps> = React.memo<ImageProps>(props => {
     ...otherProps
   } = overridedProps;
 
+  const { uri } = source as ImageURISource;
+  const loadable = !!uri;
+
   const [retry, setRetry] = useState(0);
   const [loading, setLoading] = useState(true);
   const [waiting, setWaiting] = useState(false);
@@ -193,7 +196,6 @@ const Image: React.FC<ImageProps> = React.memo<ImageProps>(props => {
 
   // use different uri to clear cache on Android.
   // cache may cause onError loop infinitely.
-  const { uri } = source as ImageURISource;
   const newUriSource = useMemo(() => {
     const clearCache = `clearcache=${Date.now()}`;
     if (uri && retry >= 0) {
@@ -231,14 +233,14 @@ const Image: React.FC<ImageProps> = React.memo<ImageProps>(props => {
           onProgress={handleProgress}
           {...otherProps}
           onLoad={handleLoad}
-          {...(retryable
+          {...(loadable && retryable
             ? {
                 onError: handleError,
               }
             : {})}
         />
       )}
-      {loading && (
+      {loadable && loading && (
         <View style={fixedStyles.loadingWrapper}>
           {placeholderType === 'loader' && (
             <ContentLoader
