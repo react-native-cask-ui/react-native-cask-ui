@@ -5,7 +5,7 @@ import { TColor, useMemoStyles } from '../theme';
 
 type JustifyContentType = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
 
-type FlexProps = {
+export interface FlexProps {
   children: ReactNode;
   row?: boolean;
   around?: boolean;
@@ -29,7 +29,7 @@ type FlexProps = {
   paddingLeft?: number | string;
   paddingVertical?: number | string;
   paddingHorizontal?: number | string;
-};
+}
 
 const Flex = React.memo<FlexProps>(props => {
   const {
