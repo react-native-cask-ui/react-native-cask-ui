@@ -8,6 +8,7 @@ import {
   SectionListData,
   SectionListRenderItem,
   ListRenderItem,
+  VirtualizedListWithoutRenderItemProps,
 } from 'react-native';
 import DraggableFlatList, { OnMoveEndInfo } from 'react-native-draggable-flatlist';
 
@@ -45,7 +46,7 @@ const defaultStyles = StyleSheet.create({
   itemSeparatorInset: {},
 });
 
-export type TSectionData<ItemT> =
+export type SectionData<ItemT> =
   | SectionListData<ItemT>
   | {
       headerTitle?: string;
@@ -57,7 +58,7 @@ export type TSectionData<ItemT> =
     }
   | null;
 
-export type TListProps<ItemT> = {
+export interface ListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
   variant?: string;
   sectionType: 'plain' | 'grouped';
   draggable?: boolean;
@@ -68,7 +69,7 @@ export type TListProps<ItemT> = {
   extraData?: unknown;
   initialScrollIndex?: number;
   ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null;
-  sections?: TSectionData<ItemT>[] | null;
+  sections?: SectionData<ItemT>[] | null;
   data?: ItemT[] | null;
   contentContainerStyle?: TStyle;
   scrollEnabled?: boolean;
@@ -76,10 +77,10 @@ export type TListProps<ItemT> = {
   scrollPercent?: number;
   onMoveEnd?: (info: OnMoveEndInfo<unknown>) => void;
   onMoveBegin?: (index: number) => void;
-};
+}
 
-function ListBase<ItemT>(props: TListProps<ItemT>, ref: any) {
-  const { props: overridedProps, styles } = useOverride<TListProps<ItemT>>('List', props);
+function ListBase<ItemT>(props: ListProps<ItemT>, ref: any) {
+  const { props: overridedProps, styles } = useOverride<ListProps<ItemT>>('List', props);
   const {
     contentContainerStyle,
     sectionType = 'plain',
@@ -128,7 +129,7 @@ function ListBase<ItemT>(props: TListProps<ItemT>, ref: any) {
   );
 
   const renderSectionFooter = useCallback(
-    ({ section }: { section: TSectionData<ItemT> }) => {
+    ({ section }: { section: SectionData<ItemT> }) => {
       if (!section) return null;
       if (section.footerView) return section.footerView;
 
