@@ -5,9 +5,12 @@
   "license": "MIT",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc --outDir dist/",
+    "build": "tsc -p tsconfig.build.json",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
