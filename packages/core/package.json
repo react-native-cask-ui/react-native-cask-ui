@@ -1,6 +1,6 @@
 {
   "name": "@react-native-cask-ui/core",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "license": "MIT",
   "source": "./src/index.ts",
@@ -14,7 +14,7 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@react-native-cask-ui/theme": "^1.0.0",
+    "@react-native-cask-ui/theme": "^1.0.3",
     "react-content-loader": "^5.1.2",
     "react-native-draggable-flatlist": "^1.1.9",
     "react-native-safe-area-view": "^0.14.7",
