@@ -24,9 +24,9 @@
     ]
   },
   "scripts": {
-    "storybook": "cd storybook && yarn storybook"
+    "storybook": "cd storybook && yarn storybook",
+    "publish": "lerna publish"
   },
-  "dependencies": {},
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.9.0",
     "@typescript-eslint/parser": "^3.9.0",
@@ -38,10 +38,10 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-native": "^3.9.1",
     "husky": "^4.3.0",
+    "lerna": "^3.22.1",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
     "typescript": "~3.9.5"
   },
-  "license": "MIT",
-  "private": true
+  "license": "MIT"
 }

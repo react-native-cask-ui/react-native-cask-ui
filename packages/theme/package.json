@@ -2,12 +2,13 @@
   "name": "@react-native-cask-ui/theme",
   "version": "1.0.0",
   "description": "",
+  "license": "MIT",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc --outDir dist/",
-    "prepublishOnly": "npm run "
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "shallow-equal": "^1.2.1"
