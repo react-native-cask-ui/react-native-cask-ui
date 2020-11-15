@@ -91,5 +91,3 @@ export const useOverride = <TProps extends { [key: string]: any }>(
 };
 
 export const useMemoStyles = (styles: TStyle[]): TStyle => useMemo<TStyle>(() => styles, styles);
-
-export * from './types';

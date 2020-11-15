@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View, Modal, TouchableWithoutFeedback, NativeSyntheticEvent } from 'react-native';
-
-import { useOverride } from '../theme';
+import { useOverride } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
   backdrop: {

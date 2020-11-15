@@ -1,10 +1,5 @@
 const colors = {
-  primaryColor: '#79c7ce',
-  primaryDeepColor: '#59a7ae',
-  secondaryColor: '#ff7e8e',
-  secondaryDeepColor: '#df5e6e',
-  primaryBgColor: '#fafafc',
-  secondaryBgColor: 'white',
+  primaryColor: '#6633dd',
   successColor: '#05bb85',
   warningColor: '#d90',
   dangerColor: '#f77',
@@ -14,7 +9,7 @@ const colors = {
 export default {
   ...colors,
   // bar
-  barColor: colors.secondaryBgColor,
+  barColor: colors.primaryColor,
   barItemColor: '#8d8d8d',
   barItemTintColor: colors.primaryColor,
   barBorderColor: '#ebebeb',
@@ -24,9 +19,9 @@ export default {
   navigationBarItemTintColor: 'white',
   navigationBarBorderColor: '#00000033',
   // tab bar
-  tabBarColor: colors.secondaryBgColor,
+  tabBarColor: colors.primaryColor,
   tabBarItemColor: '#8d8d8d',
-  tabBarItemTintColor: colors.secondaryColor,
+  tabBarItemTintColor: colors.primaryColor,
   tabBarBorderColor: '#00000033',
   // text
   lowlightedTextColor: '#999',

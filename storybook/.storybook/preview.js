@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider } from '@react-native-cask-ui/core';
+import { ThemeProvider } from '@react-native-cask-ui/theme';
 
 import { themes } from '../theme';
 

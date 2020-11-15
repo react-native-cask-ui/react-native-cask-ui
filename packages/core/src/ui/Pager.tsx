@@ -11,10 +11,9 @@ import {
   ScrollView,
 } from 'react-native';
 import { TabView, TabBar, Pager, SceneRendererProps } from 'react-native-tab-view';
+import { useOverride } from '@react-native-cask-ui/theme';
 
 import PagerConfig from './PagerConfig';
-
-import { useOverride } from '../theme';
 
 const defaultStyles = StyleSheet.create({
   indicator: {

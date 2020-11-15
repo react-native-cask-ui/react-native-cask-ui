@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import { useOverride, useMemoStyles } from '../theme';
+import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
   root: {

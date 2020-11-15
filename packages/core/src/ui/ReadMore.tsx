@@ -1,7 +1,6 @@
 import React, { useCallback, useState, ReactNode } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-
-import { useOverride, useMemoStyles } from '../theme';
+import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 const fixedStyles = StyleSheet.create({
   hidden: {

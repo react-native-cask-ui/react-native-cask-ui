@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 import { TSearchBarRendererProps } from './types';
-import { useOverride, useMemoStyles } from '../../theme';
 
 const defaultStyles = StyleSheet.create({
   root: {

@@ -5,8 +5,7 @@ import {
   HeaderItemProps,
 } from 'react-navigation-header-buttons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-
-import { useOverride } from '../theme';
+import { useOverride } from '@react-native-cask-ui/theme';
 
 export type HeaderButtonsItemProps = {
   variant?: string;

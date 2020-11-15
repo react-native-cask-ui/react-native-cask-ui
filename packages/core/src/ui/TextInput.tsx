@@ -7,8 +7,7 @@ import {
   TextInput as OriginTextInput,
   TextInputProps as OriginTextInputProps,
 } from 'react-native';
-
-import { useOverride, useMemoStyles, TColor } from '../theme';
+import { useOverride, useMemoStyles, TColor } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
   root: {

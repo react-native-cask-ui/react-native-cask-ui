@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, TouchableOpacityProps } from 'react-native';
+import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 import { $Diff } from 'utility-types';
-
-import { useOverride, useMemoStyles } from '../theme';
 
 const defaultStyles = StyleSheet.create({
   root: {

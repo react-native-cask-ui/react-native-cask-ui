@@ -1,8 +1,7 @@
 import React, { useMemo, ReactNode } from 'react';
 import { StyleSheet, Text as OriginText, TextProps as OriginTextProps } from 'react-native';
+import { useOverride } from '@react-native-cask-ui/theme';
 import { $Diff } from 'utility-types';
-
-import { useOverride } from '../theme';
 
 const defaultStyles = StyleSheet.create({
   text: {},

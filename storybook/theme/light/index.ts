@@ -1,4 +1,4 @@
-import { Theme } from '@react-native-cask-ui/core';
+import { Theme } from '@react-native-cask-ui/theme';
 
 import palette from './palette';
 import overrides from './overrides';

@@ -11,8 +11,7 @@ import {
   VirtualizedListWithoutRenderItemProps,
 } from 'react-native';
 import DraggableFlatList, { OnMoveEndInfo } from 'react-native-draggable-flatlist';
-
-import { useOverride, TStyle } from '../theme';
+import { useOverride, TStyle } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
   groupedHeaderText: {

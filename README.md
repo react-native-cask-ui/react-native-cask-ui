@@ -15,7 +15,7 @@ $ yarn storybook
 
 |                      | Storybook | Hooks | useMemoStyle | Remove T | Interface | Renderer |
 | -------------------- | :-------: | :---: | :----------: | :------: | :-------: | :------: |
-| Alert                | -         | ✔️     | -            | ✔️        | ✔️         |          |
+| Alert                | -         | ✔️     | -            | ✔️        | ✔️         | -        |
 | Badge                | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | Button               | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | Card                 | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |

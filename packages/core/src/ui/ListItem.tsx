@@ -13,12 +13,14 @@ import {
   KeyboardTypeOptions,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useOverride, useMemoStyles, TColor } from '@react-native-cask-ui/theme';
 
-import { useOverride, useMemoStyles, useTheme, TColor } from '../theme';
 import DisclosureIndicatorIcon from '../assets/images/ic_disclosure_indicator.png';
 
 type ItemType = 'default' | 'button' | 'input'; // more: picker, datepicker
 type AccessoryType = 'none' | 'disclosureIndicator' | 'checkmark';
+
+const PLACEHOLDER_TEXT_COLOR = '#999';
 
 const defaultStyles = StyleSheet.create({
   root: {
@@ -241,7 +243,6 @@ const ContentView = React.memo<ListItemProps>(props => {
     inputUnit,
     keyboardType,
   } = overridedProps;
-  const { palette } = useTheme();
 
   // FIXME: find a better way to define margin 16
   const contentMargins = {};
@@ -298,7 +299,7 @@ const ContentView = React.memo<ListItemProps>(props => {
           style={finalInputStyle}
           value={value}
           placeholder={placeholder}
-          placeholderTextColor={palette.placeholderTextColor}
+          placeholderTextColor={PLACEHOLDER_TEXT_COLOR}
           onChangeText={onValueChange}
           editable={!disabled}
           keyboardType={keyboardType}
@@ -309,7 +310,7 @@ const ContentView = React.memo<ListItemProps>(props => {
   } else if (value) {
     rightView = <Text style={finalValueStyle}>{value}</Text>;
   } else if (accessoryType === 'disclosureIndicator' && placeholder) {
-    rightView = <Text style={[finalValueStyle, { color: palette.placeholderTextColor }]}>{placeholder}</Text>;
+    rightView = <Text style={[finalValueStyle, { color: PLACEHOLDER_TEXT_COLOR }]}>{placeholder}</Text>;
   }
 
   return (

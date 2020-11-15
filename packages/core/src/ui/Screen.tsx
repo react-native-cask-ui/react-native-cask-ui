@@ -1,8 +1,7 @@
 import React, { ReactNode, useMemo } from 'react';
 import { StyleSheet, View, StatusBar, StatusBarStyle } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
-
-import { useOverride, useMemoStyles } from '../theme';
+import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
   root: {
