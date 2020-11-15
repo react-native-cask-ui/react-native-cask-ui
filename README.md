@@ -19,7 +19,7 @@ $ yarn storybook
 | Badge                | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | Button               | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | Card                 | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
-| Flex                 |           | ✔️     | ✔️            | ✔️        | ✔️         |          |
+| Flex                 | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         | -        |
 | HeaderButtons        |           | ✔️     |              | ✔️        |           |          |
 | KeyboardAvoidingView | App Only  | ✔️     | -            | ✔️        | ✔️         | -        |
 | Image                | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
@@ -35,7 +35,7 @@ $ yarn storybook
 | Screen               | -         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | SearchBar            |           | ✔️     | ✔️            | ✔️        |           | ✔️        |
 | Separator            |           | ✔️     | ✔️            | ✔️        |           |          |
-| Stack                |           | ✔️     |              | ✔️        | ✔️         |          |
+| Stack                | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         | -        |
 | Text                 | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | TextInput            | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | Toolbar              |           | ✔️     | ✔️            | ✔️        |           |          |

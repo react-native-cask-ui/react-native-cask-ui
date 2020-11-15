@@ -5,28 +5,97 @@ import { TColor, useMemoStyles } from '@react-native-cask-ui/theme';
 type JustifyContentType = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
 
 export interface FlexProps {
+  /**
+   * Anything inside the flex box.
+   */
   children: ReactNode;
+  /**
+   * If `true`, display by the row direction.
+   */
   row?: boolean;
+  /**
+   * If `true`, the inner items will arranged like `justifyContent: 'space-around'`.
+   */
   around?: boolean;
+  /**
+   * If `true`, the inner items will arranged like `justifyContent: 'space-between'`.
+   */
   between?: boolean;
+  /**
+   * If `true`, the inner items will arranged like `justifyContent: 'space-evenly'`.
+   */
   evenly?: boolean;
+  /**
+   * If `true`, the box will fill parent.
+   */
   fill?: boolean;
+  /**
+   * If `true`, the inner items will be arranged from the start position in the horizontal direction.
+   */
   hStart?: boolean;
+  /**
+   * If `true`, the inner items will be arranged from the start position in the vertical direction.
+   */
   vStart?: boolean;
+  /**
+   * If `true`, the inner items will be arranged in the middle of the horizontal direction.
+   */
   hCenter?: boolean;
+  /**
+   * If `true`, the inner items will be arranged in the middle of the vertical direction.
+   */
   vCenter?: boolean;
+  /**
+   * If `true`, the inner items will be arranged from the end position in the horizontal direction.
+   */
   hEnd?: boolean;
+  /**
+   * If `true`, the inner items will be arranged from the start position in the vertical direction.
+   */
   vEnd?: boolean;
+  /**
+   * If `true`, the inner items will be arranged like `flexWrap: 'wrap'`.
+   */
   wrap?: boolean;
+  /**
+   * The background color of the flex box.
+   */
   backgroundColor?: TColor;
+  /**
+   * The width of the flex box.
+   */
   width?: number | string;
+  /**
+   * The height of the flex box.
+   */
   height?: number | string;
+  /**
+   * The paddings of the flex box.
+   */
   padding?: number | string;
+  /**
+   * The padding top of the flex box.
+   */
   paddingTop?: number | string;
+  /**
+   * The padding right of the flex box.
+   */
   paddingRight?: number | string;
+  /**
+   * The padding bottom of the flex box.
+   */
   paddingBottom?: number | string;
+  /**
+   * The padding left of the flex box.
+   */
   paddingLeft?: number | string;
+  /**
+   * The paddings of the flex box in the vertical direction.
+   */
   paddingVertical?: number | string;
+  /**
+   * The paddings of the flex box in the horizontal direction.
+   */
   paddingHorizontal?: number | string;
 }
 
