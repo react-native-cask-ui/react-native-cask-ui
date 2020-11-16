@@ -1,6 +1,6 @@
 {
   "name": "@react-native-cask-ui/core",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "license": "MIT",
   "source": "./src/index.ts",
