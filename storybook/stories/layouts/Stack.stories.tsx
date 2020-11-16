@@ -8,7 +8,6 @@ export default {
   component: Stack,
   argTypes: {},
   args: {
-    flexes: [1, 2, 3],
     spacing: 20,
     children: [
       <View style={{ flex: 1, backgroundColor: 'red' }} />,
@@ -30,9 +29,9 @@ const TemplateRow: Story<StackProps> = args => (
   </View>
 );
 
-export const ColumnWithSameSpacing = TemplateColumn.bind({});
-ColumnWithSameSpacing.storyName = 'Column with Same Spacing';
-ColumnWithSameSpacing.args = {
+export const ColumnWithSpacing = TemplateColumn.bind({});
+ColumnWithSpacing.storyName = 'Column with Spacing';
+ColumnWithSpacing.args = {
   children: [
     <View style={{ height: 100, backgroundColor: 'red' }} />,
     <View style={{ height: 100, backgroundColor: 'green' }} />,
@@ -40,9 +39,9 @@ ColumnWithSameSpacing.args = {
   ],
 };
 
-export const RowWithSameSpacing = TemplateRow.bind({});
-RowWithSameSpacing.storyName = 'Row with Same Spacing';
-RowWithSameSpacing.args = {
+export const RowWithSpacing = TemplateRow.bind({});
+RowWithSpacing.storyName = 'Row with Spacing';
+RowWithSpacing.args = {
   row: true,
   children: [
     <View style={{ width: 100, backgroundColor: 'red' }} />,
@@ -55,6 +54,7 @@ export const ColumnWithFlexes = TemplateColumn.bind({});
 ColumnWithFlexes.storyName = 'Column with Flexes';
 ColumnWithFlexes.args = {
   fill: true,
+  flexes: [1, 2, 3],
 };
 
 export const RowWithSameFlexes = TemplateRow.bind({});
@@ -62,4 +62,5 @@ RowWithSameFlexes.storyName = 'Row with Flexes';
 RowWithSameFlexes.args = {
   row: true,
   fill: true,
+  flexes: [1, 2, 3],
 };

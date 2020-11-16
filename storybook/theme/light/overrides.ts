@@ -112,6 +112,62 @@ const overrides: Overrides<unknown> = {
       }),
     },
   },
+  List: {
+    default: {
+      styles: StyleSheet.create({
+        groupedHeaderText: {
+          color: palette.textColor,
+          paddingHorizontal: 20,
+        },
+        groupedFooterText: {
+          color: palette.textColor,
+          paddingHorizontal: 24,
+        },
+        plainHeaderText: {
+          color: palette.highlightedTextColor,
+          backgroundColor: '#f9f9f9',
+        },
+        sectionSeparator: {
+          backgroundColor: '#ebebeb',
+        },
+        itemSeparator: {
+          backgroundColor: '#ebebeb',
+          marginLeft: 24,
+        },
+      }),
+    },
+  },
+  ListItem: {
+    default: {
+      props: {
+        accessoryIconColor: palette.primaryColor,
+      },
+      styles: StyleSheet.create({
+        root: {
+          paddingLeft: 24,
+          paddingRight: 24,
+        },
+        icon: {
+          tintColor: palette.highlightedTextColor,
+        },
+        text: {
+          color: palette.highlightedTextColor,
+        },
+        detailText: {
+          color: palette.textColor,
+        },
+        value: {
+          color: palette.textColor,
+        },
+        button: {
+          color: palette.primaryColor,
+        },
+        accessory: {
+          color: palette.primaryColor,
+        },
+      }),
+    },
+  },
   Text: {
     h1: {
       styles: StyleSheet.create({

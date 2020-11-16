@@ -42,7 +42,9 @@ const defaultStyles = StyleSheet.create({
     height: StyleSheet.hairlineWidth,
     marginLeft: 16,
   },
-  itemSeparatorInset: {},
+  itemSeparatorInset: {
+    backgroundColor: 'white',
+  },
 });
 
 export type SectionData<ItemT> =

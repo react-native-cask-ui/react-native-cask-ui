@@ -29,6 +29,7 @@ const defaultStyles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
     minHeight: 44,
+    backgroundColor: 'white',
   },
   content: {
     flex: 1,
@@ -251,7 +252,7 @@ const ContentView = React.memo<ListItemProps>(props => {
   if (
     accessoryType &&
     accessoryType !== 'none' &&
-    !(accessoryType === 'disclosureIndicator' && Platform.OS !== 'ios')
+    !(accessoryType === 'disclosureIndicator' && Platform.OS === 'android')
   ) {
     /* @ts-ignore */
     contentMargins.marginRight = 16;
@@ -329,19 +330,12 @@ const AccessoryView = React.memo<ListItemProps>(props => {
     case 'none':
       return null;
     case 'disclosureIndicator':
-      if (Platform.OS === 'ios') {
-        return <DisclosureIndicator />;
-        // return (
-        //   <Image
-        //     source={DisclosureIndicatorIcon}
-        //     style={{
-        //       resizeMode: 'contain',
-        //       width: 8,
-        //       height: 13,
-        //       alignSelf: 'center',
-        //     }}
-        //   />
-        // );
+      if (Platform.OS !== 'android') {
+        return (
+          <View style={{ alignSelf: 'center' }}>
+            <DisclosureIndicator />
+          </View>
+        );
       }
 
       return null;

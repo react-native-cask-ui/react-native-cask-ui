@@ -24,7 +24,7 @@ $ yarn storybook
 | KeyboardAvoidingView | App Only  | ✔️     | -            | ✔️        | ✔️         | -        |
 | Image                | ✔️         | ✔️     | ✔️            | ✔️        | ✔️         |          |
 | InputSpinner         |           | ✔️     | ✔️            |          |           |          |
-| List                 |           | ✔️     |              |          |           |          |
+| List                 | ✔️         | ✔️     |              | ✔️        |           |          |
 | ListItem             |           | ✔️     | ✔️            | ✔️        |           |          |
 | LoadingSpinner       |           | ✔️     |              | ✔️        |           | ✔️        |
 | Modal                |           | ✔️     |              |          |           |          |
