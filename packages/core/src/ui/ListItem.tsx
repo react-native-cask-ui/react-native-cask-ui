@@ -15,7 +15,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useOverride, useMemoStyles, TColor } from '@react-native-cask-ui/theme';
 
-import DisclosureIndicatorIcon from '../assets/images/ic_disclosure_indicator.png';
+import DisclosureIndicator from '../svg/DisclosureIndicator';
 
 type ItemType = 'default' | 'button' | 'input'; // more: picker, datepicker
 type AccessoryType = 'none' | 'disclosureIndicator' | 'checkmark';
@@ -330,17 +330,18 @@ const AccessoryView = React.memo<ListItemProps>(props => {
       return null;
     case 'disclosureIndicator':
       if (Platform.OS === 'ios') {
-        return (
-          <Image
-            source={DisclosureIndicatorIcon}
-            style={{
-              resizeMode: 'contain',
-              width: 8,
-              height: 13,
-              alignSelf: 'center',
-            }}
-          />
-        );
+        return <DisclosureIndicator />;
+        // return (
+        //   <Image
+        //     source={DisclosureIndicatorIcon}
+        //     style={{
+        //       resizeMode: 'contain',
+        //       width: 8,
+        //       height: 13,
+        //       alignSelf: 'center',
+        //     }}
+        //   />
+        // );
       }
 
       return null;
