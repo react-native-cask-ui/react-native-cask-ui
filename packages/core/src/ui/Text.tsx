@@ -33,7 +33,7 @@ const Text: React.FC<TextProps> = React.memo<TextProps>(props => {
   const flattenTextStyles = StyleSheet.flatten(styles.text);
   /* @ts-ignore */
   const { fontSize, lineHeight: customLineHeight } = flattenTextStyles || {};
-  const lineHeight = fontSize && !customLineHeight ? fontSize + 5 : undefined;
+  const lineHeight = fontSize && !customLineHeight ? fontSize + 5 : customLineHeight;
 
   const finalTextStyle = useMemo(() => {
     return [defaultStyles.text, styles.text, { lineHeight }, textAlign ? { textAlign } : null];
