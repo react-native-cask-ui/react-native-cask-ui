@@ -29,31 +29,33 @@ const Stack = React.memo<StackProps>(props => {
 
   const items = useMemo(
     () =>
-      children.map((item, index) => {
-        const key = `${index}`;
-        let flex;
-        if (fill) {
-          if (!flexes) flex = 1;
-          else {
-            flex = flexes?.[index] || undefined;
+      children
+        .filter(item => !!item)
+        .map((item, index) => {
+          const key = `${index}`;
+          let flex;
+          if (fill) {
+            if (!flexes) flex = 1;
+            else {
+              flex = flexes?.[index] || undefined;
+            }
           }
-        }
-        const flexDirection = row ? 'row' : ('column' as 'row' | 'column');
-        const style = {
-          flex,
-          flexDirection,
-          marginTop: 0,
-          marginLeft: 0,
-          marginRight: 0,
-          marginBottom: 0,
-          [row ? 'marginRight' : 'marginBottom']: index !== children.length - 1 ? spacing : undefined,
-        };
-        return (
-          <View key={key} style={style}>
-            {item}
-          </View>
-        );
-      }),
+          const flexDirection = row ? 'row' : ('column' as 'row' | 'column');
+          const style = {
+            flex,
+            flexDirection,
+            marginTop: 0,
+            marginLeft: 0,
+            marginRight: 0,
+            marginBottom: 0,
+            [row ? 'marginRight' : 'marginBottom']: index !== children.length - 1 ? spacing : undefined,
+          };
+          return (
+            <View key={key} style={style}>
+              {item}
+            </View>
+          );
+        }),
     [row, fill, flexes, spacing, children],
   );
 
