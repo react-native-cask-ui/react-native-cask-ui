@@ -18,7 +18,7 @@ import { useOverride, useMemoStyles, TColor } from '@react-native-cask-ui/theme'
 import DisclosureIndicator from '../svg/DisclosureIndicator';
 
 type ItemType = 'default' | 'button' | 'input'; // more: picker, datepicker
-type AccessoryType = 'none' | 'disclosureIndicator' | 'checkmark';
+export type AccessoryType = 'none' | 'disclosureIndicator' | 'checkmark' | 'placeholder';
 
 const PLACEHOLDER_TEXT_COLOR = '#999';
 
@@ -332,7 +332,7 @@ const AccessoryView = React.memo<ListItemProps>(props => {
     case 'disclosureIndicator':
       if (Platform.OS !== 'android') {
         return (
-          <View style={{ alignSelf: 'center' }}>
+          <View style={{ marginLeft: 27, alignSelf: 'center' }}>
             <DisclosureIndicator />
           </View>
         );
@@ -342,12 +342,14 @@ const AccessoryView = React.memo<ListItemProps>(props => {
     case 'checkmark':
       return (
         <Ionicons
-          name="ios-checkmark"
-          size={32}
+          name="md-checkmark"
+          size={24}
           color={accessoryIconColor}
-          style={{ marginTop: 2, marginLeft: 16, alignSelf: 'center' }}
+          style={{ width: 18, marginLeft: 16, alignSelf: 'center' }}
         />
       );
+    case 'placeholder':
+      return <View style={{ width: 18, marginLeft: 16, alignSelf: 'center' }} />;
     default:
       return null;
   }
