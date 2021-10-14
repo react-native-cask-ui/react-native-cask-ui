@@ -1,10 +1,25 @@
 import React from 'react';
 import { View } from 'react-native';
-import { List, ListProps, ListItem } from '@react-native-cask-ui/core';
+import { List, ListProps, ListItem, AccessoryType } from '@react-native-cask-ui/core';
 import { Story, Meta } from '@storybook/react';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => `Item ${i}`);
 const sections = [1, 2, 3].map(s => ({ headerTitle: `Section ${s}`, data }));
+
+const getAccessoryType = (n: number): AccessoryType | undefined => {
+  switch (n % 4) {
+    case 0:
+      return 'none';
+    case 1:
+      return 'disclosureIndicator';
+    case 2:
+      return 'checkmark';
+    case 3:
+      return 'placeholder';
+    default:
+      return undefined;
+  }
+};
 
 export default {
   title: 'Components/List',
@@ -14,8 +29,8 @@ export default {
   },
   args: {
     keyExtractor: (item: { id: string }) => item.id,
-    renderItem: ({ item }: { item: string }) => {
-      return <ListItem text={item} accessoryType="disclosureIndicator" />;
+    renderItem: ({ item, index }: { item: string; index: number }) => {
+      return <ListItem text={item} accessoryType={getAccessoryType(index)} />;
     },
   },
 } as Meta;
