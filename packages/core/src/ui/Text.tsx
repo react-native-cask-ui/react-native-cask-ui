@@ -22,7 +22,7 @@ export interface TextProps extends $Diff<OriginTextProps, { style?: unknown }> {
   children: ReactNode;
 }
 
-const Text: React.FC<TextProps> = React.memo<TextProps>(props => {
+const Text = React.forwardRef<OriginText, TextProps>((props, ref) => {
   const { props: overridedProps, styles } = useOverride('Text', props);
   const { textAlign, children, ...otherProps } = overridedProps;
 
@@ -40,10 +40,10 @@ const Text: React.FC<TextProps> = React.memo<TextProps>(props => {
   }, [styles.text, lineHeight, textAlign]);
 
   return (
-    <OriginText style={finalTextStyle} {...otherProps}>
+    <OriginText ref={ref} style={finalTextStyle} {...otherProps}>
       {children}
     </OriginText>
   );
 });
 
-export default Text;
+export default React.memo(Text);

@@ -14,6 +14,7 @@ const defaultStyles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 4,
     paddingHorizontal: 16,
+    overflow: 'hidden',
   },
   buttonDisabled: {
     opacity: 0.3,
@@ -67,9 +68,9 @@ const Button: React.FC<ButtonProps> = React.memo<ButtonProps>(props => {
     <View style={finalStyle}>
       <TouchableOpacity disabled={disabled} {...otherProps}>
         <View style={finalButtonStyle}>
-          <View style={finalIconStyle}>{icon}</View>
+          {icon && <View style={finalIconStyle}>{icon}</View>}
           {icon && title && <View style={{ width: 8 }} />}
-          <Text style={finalTextStyle}>{title}</Text>
+          {title && <Text style={finalTextStyle}>{title}</Text>}
         </View>
       </TouchableOpacity>
     </View>
