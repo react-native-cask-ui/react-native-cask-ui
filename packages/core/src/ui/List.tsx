@@ -14,6 +14,9 @@ import DraggableFlatList, { OnMoveEndInfo } from 'react-native-draggable-flatlis
 import { useOverride, TStyle } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
+  defaultHeaderPlaceholder: {
+    height: 32,
+  },
   groupedHeaderText: {
     paddingTop: 28,
     paddingHorizontal: 16,
@@ -78,9 +81,10 @@ export interface ListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<
   scrollPercent?: number;
   onMoveEnd?: (info: OnMoveEndInfo<unknown>) => void;
   onMoveBegin?: (index: number) => void;
+  stickySectionHeadersEnabled?: boolean;
 }
 
-function ListBase<ItemT>(props: ListProps<ItemT>, ref: any) {
+function ListBase<ItemT>(props: ListProps<ItemT> & { ref?: React.Ref<FlatList> }, ref: any) {
   const { props: overridedProps, styles } = useOverride<ListProps<ItemT>>('List', props);
   const {
     contentContainerStyle,
@@ -97,11 +101,15 @@ function ListBase<ItemT>(props: ListProps<ItemT>, ref: any) {
     ({ section }) => {
       if (section.headerView) return section.headerView;
 
+      const finalDefaultHeaderPlaceholderStyle = [
+        defaultStyles.defaultHeaderPlaceholder,
+        styles.defaultHeaderPlaceholder,
+      ];
       const finalGroupedHeaderTextStyle = [defaultStyles.groupedHeaderText, styles.groupedHeaderText];
       const finalPlainHeaderTextStyle = [defaultStyles.plainHeaderText, styles.plainHeaderText];
       const finalSectionSeparatorStyle = [defaultStyles.sectionSeparator, styles.sectionSeparator];
 
-      let sectionHeader = <View style={{ height: 32 }} />;
+      let sectionHeader = <View style={finalDefaultHeaderPlaceholderStyle} />;
 
       if (sectionType === 'grouped' && section.headerTitle) {
         sectionHeader = (
@@ -116,7 +124,7 @@ function ListBase<ItemT>(props: ListProps<ItemT>, ref: any) {
           sectionHeader = <View style={finalSectionSeparatorStyle} />;
         }
         sectionHeader = (
-          <View style={{ marginTop: -1 }}>
+          <View style={{ marginTop: -2 }}>
             <View style={finalSectionSeparatorStyle} />
             <Text style={finalPlainHeaderTextStyle}>{section.headerTitle}</Text>
             <View style={finalSectionSeparatorStyle} />

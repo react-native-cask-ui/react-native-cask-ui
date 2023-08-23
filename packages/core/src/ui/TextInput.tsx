@@ -57,7 +57,7 @@ export interface TextInputProps extends $Diff<OriginTextInputProps, { style?: un
   editable?: boolean;
 }
 
-const TextInput: React.FC<TextInputProps> = React.memo<TextInputProps>(props => {
+const TextInput = React.forwardRef<OriginTextInput, TextInputProps>((props, ref) => {
   const { props: overridedProps, styles } = useOverride('TextInput', props);
   const { label, editable, ...otherProps } = overridedProps;
 
@@ -74,6 +74,7 @@ const TextInput: React.FC<TextInputProps> = React.memo<TextInputProps>(props => 
     <View style={finalStyle}>
       {label && <Text style={finalLabelStyle}>{label}</Text>}
       <OriginTextInput
+        ref={ref}
         placeholderTextColor="#00000033"
         style={finalTextInputStyle}
         editable={editable}
@@ -83,4 +84,4 @@ const TextInput: React.FC<TextInputProps> = React.memo<TextInputProps>(props => 
   );
 });
 
-export default TextInput;
+export default React.memo(TextInput);

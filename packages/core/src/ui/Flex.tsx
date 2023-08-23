@@ -70,6 +70,14 @@ export interface FlexProps {
    */
   height?: number | string;
   /**
+   * The min width of the flex box.
+   */
+  minWidth?: number | string;
+  /**
+   * The min height of the flex box.
+   */
+  minHeight?: number | string;
+  /**
    * The paddings of the flex box.
    */
   padding?: number | string;
@@ -117,6 +125,8 @@ const Flex = React.memo<FlexProps>(props => {
     backgroundColor,
     width,
     height,
+    minWidth,
+    minHeight,
     padding,
     paddingTop,
     paddingRight,
@@ -165,6 +175,8 @@ const Flex = React.memo<FlexProps>(props => {
       backgroundColor,
       width,
       height,
+      minWidth,
+      minHeight,
       padding,
       paddingTop,
       paddingRight,
@@ -181,6 +193,8 @@ const Flex = React.memo<FlexProps>(props => {
       backgroundColor,
       width,
       height,
+      minWidth,
+      minHeight,
       padding,
       paddingTop,
       paddingRight,

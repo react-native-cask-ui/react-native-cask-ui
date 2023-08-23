@@ -1,4 +1,4 @@
-import React, { ReactNode, ComponentType, useCallback } from 'react';
+import React, { ReactNode, useCallback, ReactElement } from 'react';
 import {
   StyleSheet,
   Platform,
@@ -53,6 +53,10 @@ const defaultStyles = StyleSheet.create({
   textDisabled: {
     opacity: 0.6,
   },
+  detailChildren: {
+    paddingTop: 4,
+    paddingBottom: 12,
+  },
   detailText: {
     paddingTop: 4,
     paddingBottom: 12,
@@ -72,7 +76,9 @@ const defaultStyles = StyleSheet.create({
   valueDisabled: {
     opacity: 0.6,
   },
-  switch: {},
+  switch: {
+    alignSelf: 'flex-end',
+  },
   switchDisabled: {
     opacity: 0.6,
   },
@@ -118,11 +124,12 @@ export type ListItemProps = {
   children?: ReactNode;
   // image
   icon?: ReactNode;
-  iconView?: ComponentType<unknown>;
+  iconView?: ReactElement;
   // content
   itemType?: ItemType;
   text?: string;
   detailText?: string;
+  detailChildren?: React.ReactNode;
   placeholder?: string;
   inputUnit?: string;
   keyboardType?: KeyboardTypeOptions;
@@ -135,6 +142,7 @@ export type ListItemProps = {
   loading?: boolean;
   loadingView?: ReactNode;
   extra?: any;
+  allowsInnerPressable?: boolean;
 };
 
 const ListItem = React.memo<ListItemProps>(props => {
@@ -149,11 +157,14 @@ const ListItem = React.memo<ListItemProps>(props => {
     onPress,
     extra,
     children,
+    allowsInnerPressable = false,
   } = overridedProps;
 
   const handlePress = useCallback(
     (e: GestureResponderEvent) => {
-      if (onPress) onPress(e, extra);
+      if (onPress && !disabled) {
+        onPress(e, extra);
+      }
     },
     [onPress, extra],
   );
@@ -172,7 +183,11 @@ const ListItem = React.memo<ListItemProps>(props => {
   let touchableView = null;
 
   if (itemType === 'button') {
-    innerView = <Text style={finalButtonStyle}>{text}</Text>;
+    innerView = (
+      <Text style={finalButtonStyle} numberOfLines={1}>
+        {text}
+      </Text>
+    );
     touchableView = (
       <View style={finalStyleForButton} pointerEvents="box-only">
         {innerView}
@@ -195,7 +210,7 @@ const ListItem = React.memo<ListItemProps>(props => {
       </View>
     );
     touchableView = (
-      <View style={finalStyle} pointerEvents="box-only">
+      <View style={finalStyle} pointerEvents={allowsInnerPressable ? 'auto' : 'box-only'}>
         {innerView}
         <AccessoryView {...props} />
       </View>
@@ -238,6 +253,7 @@ const ContentView = React.memo<ListItemProps>(props => {
     disabled,
     text,
     detailText,
+    detailChildren,
     placeholder,
     value,
     onValueChange,
@@ -267,6 +283,7 @@ const ContentView = React.memo<ListItemProps>(props => {
     styles.detailText,
     disabled ? finalDetailTextDisabledStyle : null,
   ]);
+  const finalDetailChildrenStyle = useMemoStyles([defaultStyles.detailChildren, styles.detailChildren]);
   const finalValueDisabledStyle = useMemoStyles([defaultStyles.valueDisabled, styles.valueDisabled]);
   const finalValueStyle = useMemoStyles([defaultStyles.value, styles.value, disabled ? finalValueDisabledStyle : null]);
   const finalSwitchDisabledStyle = useMemoStyles([defaultStyles.switchDisabled, styles.switchDisabled]);
@@ -279,15 +296,30 @@ const ContentView = React.memo<ListItemProps>(props => {
   const finalInputStyle = useMemoStyles([defaultStyles.input, styles.input, disabled ? finalInputDisabledStyle : null]);
 
   let leftView = null;
-  if (detailText) {
+  if (detailChildren) {
     leftView = (
       <>
-        <Text style={[finalTextStyle, { paddingBottom: 0 }]}>{text}</Text>
+        <Text style={[finalTextStyle, { paddingBottom: 0 }]} numberOfLines={1}>
+          {text}
+        </Text>
+        <View style={finalDetailChildrenStyle}>{detailChildren}</View>
+      </>
+    );
+  } else if (detailText) {
+    leftView = (
+      <>
+        <Text style={[finalTextStyle, { paddingBottom: 0 }]} numberOfLines={1}>
+          {text}
+        </Text>
         <Text style={finalDetailTextStyle}>{detailText}</Text>
       </>
     );
   } else {
-    leftView = <Text style={finalTextStyle}>{text}</Text>;
+    leftView = (
+      <Text style={finalTextStyle} numberOfLines={1}>
+        {text}
+      </Text>
+    );
   }
 
   let rightView = null;
@@ -332,7 +364,7 @@ const AccessoryView = React.memo<ListItemProps>(props => {
     case 'disclosureIndicator':
       if (Platform.OS !== 'android') {
         return (
-          <View style={{ marginLeft: 27, alignSelf: 'center' }}>
+          <View style={{ alignSelf: 'center' }}>
             <DisclosureIndicator />
           </View>
         );

@@ -1,7 +1,7 @@
 import React, { ReactNode, useMemo } from 'react';
 import { StyleSheet, View, StatusBar, StatusBarStyle } from 'react-native';
-import SafeAreaView from 'react-native-safe-area-view';
-import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useOverride, useMemoStyles, TStyle } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
   root: {
@@ -19,6 +19,38 @@ const defaultStyles = StyleSheet.create({
     paddingHorizontal: 24,
   },
 });
+
+interface SafeAreaViewProps {
+  forceInset: {
+    top: 'always' | 'never';
+    bottom: 'always' | 'never';
+  };
+  style?: TStyle;
+  children: ReactNode;
+}
+
+const SafeAreaView = (props: SafeAreaViewProps) => {
+  const { forceInset, style, children } = props;
+
+  const insets = useSafeAreaInsets();
+
+  const safeAreaStyle = {
+    marginTop: 0,
+    marginBottom: 0,
+    marginRight: insets.right,
+    marginLeft: insets.left,
+  };
+
+  if (forceInset.top === 'always') {
+    safeAreaStyle.marginTop = insets.top;
+  }
+
+  if (forceInset.bottom === 'always') {
+    safeAreaStyle.marginBottom = insets.bottom;
+  }
+
+  return <View style={[safeAreaStyle, style]}>{children}</View>;
+};
 
 export interface ScreenProps {
   variant?: string;
