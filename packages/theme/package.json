@@ -3,9 +3,11 @@
   "version": "1.0.3",
   "description": "",
   "license": "MIT",
-  "source": "./src/index.ts",
+  "main": "./src/index.ts",
+  "publishConfig": {
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+    "type": "./dist/index.d.ts"
+  },
   "files": [
     "dist"
   ],
