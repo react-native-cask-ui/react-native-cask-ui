@@ -69,14 +69,5 @@
     "react-native/no-unused-styles": 2,
     "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
     "max-classes-per-file": "off"
-  },
-  "overrides": [
-    {
-      // enable the rule specifically for TypeScript files
-      "files": ["*.ts", "*.tsx"],
-      "rules": {
-        "@typescript-eslint/explicit-module-boundary-types": ["error"]
-      }
-    }
-  ]
+  }
 }
