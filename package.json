@@ -10,7 +10,7 @@
     ]
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=18"
   },
   "husky": {
     "hooks": {
@@ -25,7 +25,7 @@
     ]
   },
   "scripts": {
-    "storybook": "cd storybook && yarn storybook",
+    "storybook": "yarn --cwd storybook storybook:web",
     "publish": "lerna publish"
   },
   "devDependencies": {
@@ -42,7 +42,7 @@
     "lerna": "^3.22.1",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
-    "typescript": "~3.9.5"
+    "typescript": "^4.0.3"
   },
   "license": "MIT"
 }

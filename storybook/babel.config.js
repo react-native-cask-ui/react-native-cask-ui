@@ -3,9 +3,10 @@ module.exports = api => {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      '@babel/plugin-proposal-export-namespace-from',
-      '@babel/plugin-transform-runtime',
-      '@babel/plugin-transform-modules-commonjs',
+      ['babel-plugin-react-docgen-typescript', { exclude: 'node_modules' }],
+      ['@babel/plugin-transform-class-properties', { loose: true }],
+      ['@babel/plugin-transform-private-methods', { loose: true }],
+      ['@babel/plugin-transform-private-property-in-object', { loose: true }],
     ],
   };
 };
