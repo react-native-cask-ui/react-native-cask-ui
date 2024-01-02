@@ -1,10 +1,7 @@
-const { getDefaultConfig } = require('expo/metro-config');
+import { getDefaultConfig } from 'expo/metro-config';
 
 const defaultConfig = getDefaultConfig(__dirname);
 
-defaultConfig.resolver.resolverMainFields = [
-  'sbmodern',
-  ...defaultConfig.resolver.resolverMainFields,
-];
+defaultConfig.resolver.resolverMainFields = ['sbmodern', ...defaultConfig.resolver.resolverMainFields];
 
 module.exports = defaultConfig;
