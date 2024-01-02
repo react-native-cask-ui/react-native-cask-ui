@@ -12,7 +12,7 @@ import {
   GestureResponderEvent,
   KeyboardTypeOptions,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useOverride, useMemoStyles, TColor } from '@react-native-cask-ui/theme';
 
 import DisclosureIndicator from '../svg/DisclosureIndicator';

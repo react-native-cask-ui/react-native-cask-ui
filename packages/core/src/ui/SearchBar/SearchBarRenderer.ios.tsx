@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 import { TSearchBarRendererProps } from './types';

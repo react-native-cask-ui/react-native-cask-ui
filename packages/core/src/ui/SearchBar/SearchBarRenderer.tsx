@@ -1,6 +1,13 @@
 import React, { useState, useCallback } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+} from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 import { TSearchBarRendererProps } from './types';
@@ -69,7 +76,7 @@ export default React.memo<TSearchBarRendererProps>(props => {
   const [focus, setFocus] = useState(false);
 
   const handleFocus = useCallback(
-    e => {
+    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setFocus(true);
       if (onFocus) onFocus(e);
     },
@@ -77,7 +84,7 @@ export default React.memo<TSearchBarRendererProps>(props => {
   );
 
   const handleBlur = useCallback(
-    e => {
+    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setFocus(false);
       if (onBlur) onBlur(e);
     },

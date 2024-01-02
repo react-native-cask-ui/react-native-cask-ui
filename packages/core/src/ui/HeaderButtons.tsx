@@ -4,7 +4,7 @@ import {
   HeaderButton as OriginalHeaderButton,
   HeaderItemProps,
 } from 'react-navigation-header-buttons';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { useOverride } from '@react-native-cask-ui/theme';
 
 export type HeaderButtonsItemProps = {
@@ -29,6 +29,7 @@ const HeaderButtonsItem = React.memo<HeaderButtonsItemProps>(props => {
   return (
     <OriginalHeaderButton
       iconName={newIconName}
+      // @ts-ignore
       IconComponent={IconComponent}
       onPress={onPress}
       buttonStyle={{ opacity: onPress ? 1 : 0.3 }}
@@ -49,6 +50,7 @@ const HeaderButtons = React.memo<HeaderButtonsProps>(props => {
     return <HeaderButtonsItem variant={variant} {...itemProps} />;
   }, []);
 
+  // @ts-ignore
   return <OriginalHeaderButtons HeaderButtonComponent={renderHeaderButton}>{children}</OriginalHeaderButtons>;
 });
 

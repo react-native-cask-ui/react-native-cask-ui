@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({

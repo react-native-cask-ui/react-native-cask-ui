@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonProps } from '@react-native-cask-ui/core';
 import { Story, Meta } from '@storybook/react';
-import Feather from 'react-native-vector-icons/Feather';
+import Feather from '@expo/vector-icons/Feather';
 
 export default {
   title: 'Components/Button',

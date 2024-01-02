@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
@@ -60,7 +60,7 @@ export default React.memo<RatingProps>(props => {
         {!!value && (
           <Text style={finalLabeStyle}>
             <Text style={finalValueStyle}>
-              {value.toFixed(1)} {label}
+              {value.toFixed(1)} {typeof label === 'function' ? label(value) : label}
             </Text>
             <Text style={finalReviewsStyle}> · {reviews}</Text>
           </Text>
