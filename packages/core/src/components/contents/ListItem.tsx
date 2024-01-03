@@ -15,7 +15,7 @@ import {
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useOverride, useMemoStyles, TColor } from '@react-native-cask-ui/theme';
 
-import DisclosureIndicator from '../svg/DisclosureIndicator';
+import DisclosureIndicator from '../../svg/DisclosureIndicator';
 
 type ItemType = 'default' | 'button' | 'input'; // more: picker, datepicker
 export type AccessoryType = 'none' | 'disclosureIndicator' | 'checkmark' | 'placeholder';

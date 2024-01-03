@@ -98,7 +98,7 @@ function ListBase<ItemT>(props: ListProps<ItemT> & { ref?: React.Ref<FlatList> }
   } = overridedProps;
 
   const renderSectionHeader = useCallback(
-    ({ section }) => {
+    ({ section }: { section: SectionListData<ItemT> }) => {
       if (section.headerView) return section.headerView;
 
       const finalDefaultHeaderPlaceholderStyle = [

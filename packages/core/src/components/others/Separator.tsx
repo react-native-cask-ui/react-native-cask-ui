@@ -14,10 +14,9 @@ export type SeparatorProps = {
 };
 
 export default React.memo<SeparatorProps>(props => {
-  const { props: overridedProps, styles } = useOverride('Separator', props);
-  const { children } = overridedProps;
+  const { styles } = useOverride('Separator', props);
 
   const finalStyle = useMemoStyles([defaultStyles.root, styles.root]);
 
-  return <View style={finalStyle}>{children}</View>;
+  return <View style={finalStyle} />;
 });

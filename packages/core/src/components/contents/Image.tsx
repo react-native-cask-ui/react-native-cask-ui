@@ -8,6 +8,10 @@ import {
   ActivityIndicator,
   ImageSourcePropType,
   ImageURISource,
+  NativeSyntheticEvent,
+  ImageProgressEventDataIOS,
+  ImageErrorEventData,
+  ImageLoadEventData,
 } from 'react-native';
 import ContentLoader from 'react-content-loader';
 import { Path } from 'react-native-svg';
@@ -126,7 +130,7 @@ const Image: React.FC<ImageProps> = React.memo<ImageProps>(props => {
   const [wrapperHeight, setWrapperHeight] = useState<number | undefined>();
 
   const handleProgress = useCallback(
-    e => {
+    (e: NativeSyntheticEvent<ImageProgressEventDataIOS>) => {
       if (placeholderType !== 'progress') return;
 
       const { loaded, total } = e.nativeEvent;
@@ -143,7 +147,7 @@ const Image: React.FC<ImageProps> = React.memo<ImageProps>(props => {
   );
 
   const handleLoad = useCallback(
-    e => {
+    (e: NativeSyntheticEvent<ImageLoadEventData>) => {
       if (onLoad) onLoad(e);
 
       const { width: sourceWidth, height: sourceHeight } = e.nativeEvent.source || {};
@@ -155,7 +159,7 @@ const Image: React.FC<ImageProps> = React.memo<ImageProps>(props => {
   );
 
   const handleError = useCallback(
-    error => {
+    (error: NativeSyntheticEvent<ImageErrorEventData>) => {
       if (onError) onError(error);
 
       setLoading(true);

@@ -1,5 +1,5 @@
 import React, { ReactNode, useMemo } from 'react';
-import { View, FlexAlignType } from 'react-native';
+import { View, FlexAlignType, DimensionValue } from 'react-native';
 import { TColor, useMemoStyles } from '@react-native-cask-ui/theme';
 
 type JustifyContentType = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
@@ -64,47 +64,47 @@ export interface FlexProps {
   /**
    * The width of the flex box.
    */
-  width?: number | string;
+  width?: DimensionValue;
   /**
    * The height of the flex box.
    */
-  height?: number | string;
+  height?: DimensionValue;
   /**
    * The min width of the flex box.
    */
-  minWidth?: number | string;
+  minWidth?: DimensionValue;
   /**
    * The min height of the flex box.
    */
-  minHeight?: number | string;
+  minHeight?: DimensionValue;
   /**
    * The paddings of the flex box.
    */
-  padding?: number | string;
+  padding?: DimensionValue;
   /**
    * The padding top of the flex box.
    */
-  paddingTop?: number | string;
+  paddingTop?: DimensionValue;
   /**
    * The padding right of the flex box.
    */
-  paddingRight?: number | string;
+  paddingRight?: DimensionValue;
   /**
    * The padding bottom of the flex box.
    */
-  paddingBottom?: number | string;
+  paddingBottom?: DimensionValue;
   /**
    * The padding left of the flex box.
    */
-  paddingLeft?: number | string;
+  paddingLeft?: DimensionValue;
   /**
    * The paddings of the flex box in the vertical direction.
    */
-  paddingVertical?: number | string;
+  paddingVertical?: DimensionValue;
   /**
    * The paddings of the flex box in the horizontal direction.
    */
-  paddingHorizontal?: number | string;
+  paddingHorizontal?: DimensionValue;
 }
 
 const Flex = React.memo<FlexProps>(props => {

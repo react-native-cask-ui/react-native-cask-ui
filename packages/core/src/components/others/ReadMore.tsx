@@ -1,5 +1,5 @@
 import React, { useCallback, useState, ReactNode } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, LayoutChangeEvent } from 'react-native';
 import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 const fixedStyles = StyleSheet.create({
@@ -38,12 +38,12 @@ export default React.memo<ReadMoreProps>(props => {
 
   const finalToggleTextStyle = useMemoStyles([defaultStyles.toggleText, styles.toggleText]);
 
-  const handleCollapsedTextLayout = useCallback(event => {
+  const handleCollapsedTextLayout = useCallback((event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
     setCollapsedTextHeight(height);
   }, []);
 
-  const handleFullTextLayout = useCallback(event => {
+  const handleFullTextLayout = useCallback((event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
     setFullTextHeight(height);
   }, []);
