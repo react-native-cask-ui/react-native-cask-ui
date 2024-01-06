@@ -1,24 +1,18 @@
 import React from 'react';
 import { View } from 'react-native';
-import { List, ListProps, ListItem, AccessoryType } from '@react-native-cask-ui/core';
+import { List, ListScaleDecorator, ListProps, ListItem, AccessoryType } from '@react-native-cask-ui/core';
 import { Story, Meta } from '@storybook/react';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => `Item ${i}`);
 const sections = [1, 2, 3].map(s => ({ headerTitle: `Section ${s}`, data }));
 
-const getAccessoryType = (n: number): AccessoryType | undefined => {
-  switch (n % 4) {
-    case 0:
-      return 'none';
-    case 1:
-      return 'disclosureIndicator';
-    case 2:
-      return 'checkmark';
-    case 3:
-      return 'placeholder';
-    default:
-      return undefined;
-  }
+const getAccessoryType = (n: number): AccessoryType => {
+  const types: AccessoryType[] = ['none', 'disclosureIndicator', 'checkmark', 'placeholder'];
+  return types[n % types.length];
+};
+
+const getItem = (item: string, accessoryType: AccessoryType, drag?: () => void) => {
+  return <ListItem text={item} accessoryType={accessoryType} onLongPress={drag} />;
 };
 
 export default {
@@ -28,9 +22,9 @@ export default {
     variant: {},
   },
   args: {
-    keyExtractor: (item: { id: string }) => item.id,
-    renderItem: ({ item, index }: { item: string; index: number }) => {
-      return <ListItem text={item} accessoryType={getAccessoryType(index)} />;
+    keyExtractor: (item: string) => item,
+    renderItem: ({ item }: { item: string }) => {
+      return getItem(item, 'disclosureIndicator');
     },
   },
 } as Meta;
@@ -45,6 +39,25 @@ export const Basic = Template.bind({});
 Basic.storyName = 'Basic';
 Basic.args = {
   data,
+};
+
+export const Accessory = Template.bind({});
+Accessory.storyName = 'Accessory';
+Accessory.args = {
+  data,
+  renderItem: ({ item, index }: { item: string; index: number }) => {
+    return getItem(item, getAccessoryType(index));
+  },
+};
+
+export const Draggable = Template.bind({});
+Draggable.storyName = 'Draggable';
+Draggable.args = {
+  data,
+  draggable: true,
+  renderItem: ({ item, drag }: { item: string; drag: () => void }) => {
+    return <ListScaleDecorator>{getItem(item, 'none', drag)}</ListScaleDecorator>;
+  },
 };
 
 export const SectionPlain = Template.bind({});

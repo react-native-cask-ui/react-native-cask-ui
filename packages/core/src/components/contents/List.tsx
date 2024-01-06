@@ -7,10 +7,10 @@ import {
   FlatList,
   SectionListData,
   SectionListRenderItem,
-  ListRenderItem,
+  ListRenderItemInfo as OriginListRenderItemInfo,
   VirtualizedListWithoutRenderItemProps,
 } from 'react-native';
-import DraggableFlatList, { OnMoveEndInfo } from 'react-native-draggable-flatlist';
+import DraggableFlatList, { ScaleDecorator, ShadowDecorator, OpacityDecorator } from 'react-native-draggable-flatlist';
 import { useOverride, TStyle } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
@@ -62,6 +62,12 @@ export type SectionData<ItemT> =
     }
   | null;
 
+export interface ListRenderItemInfo<ItemT> extends OriginListRenderItemInfo<ItemT> {
+  drag: () => void;
+}
+
+export type ListRenderItem<ItemT> = (info: ListRenderItemInfo<ItemT>) => React.ReactElement | null;
+
 export interface ListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
   variant?: string;
   sectionType: 'plain' | 'grouped';
@@ -77,11 +83,11 @@ export interface ListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<
   data?: ItemT[] | null;
   contentContainerStyle?: TStyle;
   scrollEnabled?: boolean;
-  // draggable
-  scrollPercent?: number;
-  onMoveEnd?: (info: OnMoveEndInfo<unknown>) => void;
-  onMoveBegin?: (index: number) => void;
   stickySectionHeadersEnabled?: boolean;
+  // draggable
+  // scrollPercent?: number; // seems be deprecated on v4
+  onMoveBegin?: (index: number) => void;
+  onMoveEnd?: (info: { data: ItemT[]; from: number; to: number }) => void;
 }
 
 function ListBase<ItemT>(props: ListProps<ItemT> & { ref?: React.Ref<FlatList> }, ref: any) {
@@ -94,6 +100,7 @@ function ListBase<ItemT>(props: ListProps<ItemT> & { ref?: React.Ref<FlatList> }
     data,
     renderSectionHeader: originRenderSectionHeader,
     renderSectionFooter: originRenderSectionFooter,
+    renderItem: originRenderItem,
     ...otherProps
   } = overridedProps;
 
@@ -176,6 +183,18 @@ function ListBase<ItemT>(props: ListProps<ItemT> & { ref?: React.Ref<FlatList> }
     );
   }, []);
 
+  const renderItemForDraggable = useCallback(
+    (info: any) => {
+      const { index, getIndex } = info as { index: number | undefined; getIndex: () => number | undefined };
+
+      let newIndex = index;
+      if (newIndex === undefined) newIndex = getIndex();
+
+      return originRenderItem({ ...info, index: newIndex });
+    },
+    [originRenderItem],
+  );
+
   // render
   if (sections) {
     // remove empty section or data
@@ -205,6 +224,7 @@ function ListBase<ItemT>(props: ListProps<ItemT> & { ref?: React.Ref<FlatList> }
             : {},
           contentContainerStyle,
         ]}
+        renderItem={draggable ? renderItemForDraggable : (originRenderItem as SectionListRenderItem<ItemT>)}
         {...otherProps}
         ref={ref}
       />
@@ -222,6 +242,8 @@ function ListBase<ItemT>(props: ListProps<ItemT> & { ref?: React.Ref<FlatList> }
         data={newData}
         ItemSeparatorComponent={renderItemSeparator}
         contentContainerStyle={contentContainerStyle}
+        // @ts-ignore, FIXME
+        renderItem={draggable ? renderItemForDraggable : (originRenderItem as ListRenderItem<ItemT>)}
         {...otherProps}
         ref={ref}
       />
@@ -234,3 +256,9 @@ function ListBase<ItemT>(props: ListProps<ItemT> & { ref?: React.Ref<FlatList> }
 const List = React.memo(React.forwardRef(ListBase)) as typeof ListBase;
 
 export default List;
+
+export {
+  ScaleDecorator as ListScaleDecorator,
+  ShadowDecorator as ListShadowDecorator,
+  OpacityDecorator as ListOpacityDecorator,
+};

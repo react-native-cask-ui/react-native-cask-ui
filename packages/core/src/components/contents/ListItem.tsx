@@ -119,7 +119,8 @@ const fixedStyle = StyleSheet.create({
 export type ListItemProps = {
   variant?: string;
   // props
-  onPress?: (e: GestureResponderEvent, extra: any) => void;
+  onPress?: (event: GestureResponderEvent, extra: any) => void;
+  onLongPress?: (event: GestureResponderEvent) => void;
   disabled?: boolean;
   children?: ReactNode;
   // image
@@ -155,6 +156,7 @@ const ListItem = React.memo<ListItemProps>(props => {
     loadingView,
     text,
     onPress,
+    onLongPress,
     extra,
     children,
     allowsInnerPressable = false,
@@ -219,9 +221,17 @@ const ListItem = React.memo<ListItemProps>(props => {
 
   if (allowsSelection) {
     if (Platform.OS === 'ios' || Platform.OS === 'web') {
-      return <TouchableOpacity onPress={handlePress}>{touchableView}</TouchableOpacity>;
+      return (
+        <TouchableOpacity onPress={handlePress} onLongPress={onLongPress}>
+          {touchableView}
+        </TouchableOpacity>
+      );
     }
-    return <TouchableNativeFeedback onPress={handlePress}>{touchableView}</TouchableNativeFeedback>;
+    return (
+      <TouchableNativeFeedback onPress={handlePress} onLongPress={onLongPress}>
+        {touchableView}
+      </TouchableNativeFeedback>
+    );
   }
   return <View style={finalStyle}>{innerView}</View>;
 });
