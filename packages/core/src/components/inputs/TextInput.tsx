@@ -10,9 +10,7 @@ import {
 import { useOverride, useMemoStyles, TColor } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
+  root: {},
   label: {
     fontSize: 14,
     lineHeight: 19,
@@ -20,7 +18,6 @@ const defaultStyles = StyleSheet.create({
     paddingBottom: 4,
   },
   textInput: {
-    flex: 1,
     height: 40,
     fontSize: 16,
     lineHeight: 21,
