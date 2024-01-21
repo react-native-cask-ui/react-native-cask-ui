@@ -19,7 +19,7 @@
     "shallow-equal": "^1.2.1"
   },
   "devDependencies": {
-    "@types/react": "~18.2.14",
+    "@types/react": "*",
     "typescript": "^4.0.3"
   },
   "peerDependencies": {

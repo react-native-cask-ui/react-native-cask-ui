@@ -50,7 +50,7 @@
     "@storybook/addon-react-native-web": "^0.0.21",
     "@storybook/builder-webpack4": "^6.5.16",
     "@storybook/manager-webpack4": "^6.5.16",
-    "@types/react": "~18.2.14",
+    "@types/react": "17.0.4",
     "babel-loader": "^8.2.3",
     "babel-plugin-react-docgen-typescript": "^1.5.1",
     "babel-plugin-react-native-web": "^0.18.10",
