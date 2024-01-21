@@ -1,5 +1,13 @@
 import React, { ReactNode } from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, TouchableOpacityProps } from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  TouchableOpacityProps,
+  ActivityIndicator,
+  ColorValue,
+} from 'react-native';
 import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 import { $Diff } from 'utility-types';
 
@@ -18,6 +26,10 @@ const defaultStyles = StyleSheet.create({
   },
   buttonDisabled: {
     opacity: 0.3,
+  },
+  loading: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   icon: {},
   iconDisabled: {},
@@ -42,14 +54,34 @@ export interface ButtonProps extends $Diff<TouchableOpacityProps, { style?: unkn
    */
   title?: string;
   /**
-   * If `true`, the buton is disabled.
+   * If `true`, the button is disabled.
    */
   disabled?: boolean;
+  /**
+   * If `true`, the button shows loading indicator.
+   */
+  loading?: boolean;
+  /**
+   * Loading indicator Color
+   */
+  loadingIndicatorColor?: ColorValue;
+  /**
+   * Loading indicator Size
+   */
+  loadingIndicatorSize?: number | 'small' | 'large' | undefined;
 }
 
 const Button: React.FC<ButtonProps> = React.memo<ButtonProps>(props => {
   const { props: overridedProps, styles } = useOverride<ButtonProps>('Button', props);
-  const { icon, title, disabled, ...otherProps } = overridedProps;
+  const {
+    icon,
+    title,
+    disabled,
+    loading,
+    loadingIndicatorColor = 'white',
+    loadingIndicatorSize = 'small',
+    ...otherProps
+  } = overridedProps;
 
   const finalStyle = useMemoStyles([defaultStyles.root, styles.root]);
   const finalButtonDisabledStyle = useMemoStyles([defaultStyles.buttonDisabled, styles.disabled]);
@@ -58,6 +90,7 @@ const Button: React.FC<ButtonProps> = React.memo<ButtonProps>(props => {
     styles.button,
     disabled ? finalButtonDisabledStyle : null,
   ]);
+  const finalLoadingStyle = useMemoStyles([defaultStyles.loading, styles.loading]);
   const finalIconDisabledStyle = useMemoStyles([defaultStyles.iconDisabled, styles.iconDisabled]);
   const finalIconStyle = useMemoStyles([defaultStyles.icon, styles.icon, disabled ? finalIconDisabledStyle : null]);
   const finalTextDisabledStyle = useMemoStyles([defaultStyles.textDisabled, styles.textDisabled]);
@@ -68,9 +101,17 @@ const Button: React.FC<ButtonProps> = React.memo<ButtonProps>(props => {
     <View style={finalStyle}>
       <TouchableOpacity disabled={disabled} {...otherProps}>
         <View style={finalButtonStyle}>
-          {icon && <View style={finalIconStyle}>{icon}</View>}
-          {icon && title && <View style={{ width: 8 }} />}
-          {title && <Text style={finalTextStyle}>{title}</Text>}
+          {loading ? (
+            <View style={finalLoadingStyle}>
+              <ActivityIndicator color={loadingIndicatorColor} size={loadingIndicatorSize} />
+            </View>
+          ) : (
+            <>
+              {icon && <View style={finalIconStyle}>{icon}</View>}
+              {icon && title && <View style={{ width: 8 }} />}
+              {title && <Text style={finalTextStyle}>{title}</Text>}
+            </>
+          )}
         </View>
       </TouchableOpacity>
     </View>
