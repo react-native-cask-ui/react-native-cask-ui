@@ -11,47 +11,56 @@ export default {
     variant: {},
     icon: { control: { disable: true } },
   },
-  args: {
-    title: 'Click Me',
-  },
+  args: {},
 } as Meta;
 
 const Template: Story<ButtonProps> = args => <Button {...args} />;
 
 export const Basic = Template.bind({});
 Basic.storyName = 'Basic';
-Basic.args = {};
+Basic.args = {
+  title: 'Text',
+};
 
 export const ButtonWithIcon = Template.bind({});
-ButtonWithIcon.storyName = 'Title with Icon';
+ButtonWithIcon.storyName = 'Icon With Text';
 ButtonWithIcon.args = {
+  title: 'Text',
   icon: <Feather name="search" size={18} color="white" />,
 };
 
 export const IconButton = Template.bind({});
-IconButton.storyName = 'Icon Button';
+IconButton.storyName = 'Pure Icon';
 IconButton.args = {
-  icon: <Feather name="search" size={18} color="white" />,
-  title: '',
+  icon: <Feather name="search" size={22} color="white" />,
   variant: 'rounded',
 };
 
 export const Disabled = Template.bind({});
 Disabled.storyName = 'Disabled';
 Disabled.args = {
+  title: 'Text',
   disabled: true,
 };
 
 export const Outline = Template.bind({});
 Outline.storyName = 'Variant - Outline';
 Outline.args = {
+  title: 'Text',
   variant: 'outline',
 };
 
 export const Rounded = Template.bind({});
 Rounded.storyName = 'Variant - Rounded';
 Rounded.args = {
+  title: 'Text',
   variant: 'rounded',
+};
+
+export const CustomizeStyle = Template.bind({});
+CustomizeStyle.storyName = 'SX - Customize Style';
+CustomizeStyle.args = {
+  title: 'Text',
   sx: StyleSheet.create({
     // eslint-disable-next-line react-native/no-unused-styles
     button: {

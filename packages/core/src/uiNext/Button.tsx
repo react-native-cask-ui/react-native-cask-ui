@@ -3,13 +3,13 @@ import { StyleSheet, TouchableOpacity, View, Text, TouchableOpacityProps } from 
 import { useMemoStyles, useTheme, TStyle } from '@react-native-cask-ui/theme';
 import { $Diff } from 'utility-types';
 
-type TPalette = Record<string, string>;
+export type TPalette = Record<string, string>;
 
-type TVariant = 'default' | 'outline' | 'plainText' | 'rounded';
+export type TVariant = 'default' | 'outline' | 'plainText' | 'rounded';
 
-type TSize = 'small' | 'medium' | 'large';
+export type TSize = 'small' | 'medium' | 'large';
 
-type TStyleVariant = {
+export type TStyleVariant = {
   root?: TStyle;
   button?: TStyle;
   disabled?: TStyle;
@@ -23,7 +23,12 @@ const getSizeVariant = (size: TSize = 'medium') => {
   return (
     {
       small: StyleSheet.create({
+        iconButton: {
+          width: 32,
+          height: 32,
+        },
         button: {
+          minHeight: 32,
           paddingHorizontal: 12,
           paddingVertical: 8,
         },
@@ -33,7 +38,12 @@ const getSizeVariant = (size: TSize = 'medium') => {
         },
       }),
       medium: StyleSheet.create({
+        iconButton: {
+          width: 40,
+          height: 40,
+        },
         button: {
+          minHeight: 40,
           paddingHorizontal: 16,
           paddingVertical: 8,
         },
@@ -43,7 +53,12 @@ const getSizeVariant = (size: TSize = 'medium') => {
         },
       }),
       large: StyleSheet.create({
+        iconButton: {
+          width: 48,
+          height: 48,
+        },
         button: {
+          minHeight: 48,
           paddingHorizontal: 24,
           paddingVertical: 8,
         },
@@ -62,6 +77,7 @@ const getStyleVariant = (palette: TPalette, variant: TVariant = 'default'): TSty
       default: StyleSheet.create({
         button: {
           backgroundColor: palette.primaryColor,
+          borderRadius: 8,
         },
         text: {
           color: palette.colorWhite,
@@ -71,6 +87,7 @@ const getStyleVariant = (palette: TPalette, variant: TVariant = 'default'): TSty
         button: {
           backgroundColor: 'transparent',
           borderColor: palette.colorLightGray,
+          borderRadius: 8,
           borderWidth: 2,
         },
         text: {
@@ -104,7 +121,6 @@ const generalStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 8,
     overflow: 'hidden',
   },
   buttonDisabled: {
@@ -151,12 +167,14 @@ const Button: React.FC<ButtonV2Props> = React.memo<ButtonV2Props>(props => {
 
   const variantStyled = useMemo(() => getStyleVariant(palette, variant), [variant, palette]);
   const sizeVariant = useMemo(() => getSizeVariant(size), [size]);
+  const isIconOnly = useMemo(() => !title && !!icon, [title, icon]);
+
   const ElementRootStyle = useMemoStyles([generalStyles.root, variantStyled.root, sx?.root || {}]);
   const finalButtonDisabledStyle = useMemoStyles([generalStyles.buttonDisabled, variantStyled.disabled, sx?.disabled]);
   const finalButtonStyle = useMemoStyles([
     generalStyles.button,
     variantStyled.button,
-    sizeVariant.button,
+    isIconOnly ? sizeVariant.iconButton : sizeVariant.button,
     sx?.button,
     disabled ? finalButtonDisabledStyle : null,
   ]);
