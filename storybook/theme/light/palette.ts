@@ -1,13 +1,38 @@
+const colorsV2 = {
+  colorBlue: '#2962FF',
+  colorLightBlue: '#BBCDFF',
+  colorExtraLightBlue: '#EAEFFF',
+  colorGreen: '#5FC417',
+  colorLightGreen: '#CCECB5',
+  colorExtraLightGreen: '#EFF9E8',
+  colorOrange: '#FD9F00',
+  colorLightOrange: '#FED999',
+  colorExtraLightOrange: '#FFF5E5',
+  colorRed: '#FF5454',
+  colorLightRed: '#FCC7B7',
+  colorExtraLightRed: '#FEEEE8',
+  colorBlack: '#000000',
+  colorWhite: '#FFFFFF',
+  colorDark: '#222224',
+  colorExtraDarkGray: '#6E6E70',
+  colorDarkGray: '#9D9DA1',
+  colorGray: '#CFCFD3',
+  colorLightGray: '#ECECF0',
+  colorExtraLightGray: '#F8F8FC',
+  colorExtraLightYellow: '#FFF7D9',
+};
+
 const colors = {
-  primaryColor: '#6633dd',
-  successColor: '#05bb85',
-  warningColor: '#d90',
-  dangerColor: '#f77',
+  primaryColor: colorsV2.colorBlue,
+  successColor: colorsV2.colorGreen,
+  warningColor: colorsV2.colorExtraLightYellow,
+  dangerColor: colorsV2.colorRed,
   grayColor: '#eee',
 };
 
 export default {
   ...colors,
+  ...colorsV2,
   // bar
   barColor: colors.primaryColor,
   barItemColor: '#8d8d8d',

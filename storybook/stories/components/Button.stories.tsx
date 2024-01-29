@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, ButtonProps } from '@react-native-cask-ui/core';
+import { StyleSheet } from 'react-native';
+import { ButtonV2 as Button, ButtonV2Props as ButtonProps } from '@react-native-cask-ui/core';
 import { Story, Meta } from '@storybook/react';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -21,10 +22,18 @@ export const Basic = Template.bind({});
 Basic.storyName = 'Basic';
 Basic.args = {};
 
-export const Icon = Template.bind({});
-Icon.storyName = 'Basic with Icon';
-Icon.args = {
+export const ButtonWithIcon = Template.bind({});
+ButtonWithIcon.storyName = 'Title with Icon';
+ButtonWithIcon.args = {
   icon: <Feather name="search" size={18} color="white" />,
+};
+
+export const IconButton = Template.bind({});
+IconButton.storyName = 'Icon Button';
+IconButton.args = {
+  icon: <Feather name="search" size={18} color="white" />,
+  title: '',
+  variant: 'rounded',
 };
 
 export const Disabled = Template.bind({});
@@ -43,4 +52,10 @@ export const Rounded = Template.bind({});
 Rounded.storyName = 'Variant - Rounded';
 Rounded.args = {
   variant: 'rounded',
+  sx: StyleSheet.create({
+    // eslint-disable-next-line react-native/no-unused-styles
+    button: {
+      backgroundColor: '#F4511E',
+    },
+  }),
 };

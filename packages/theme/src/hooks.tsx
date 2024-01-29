@@ -90,4 +90,47 @@ export const useOverride = <TProps extends { [key: string]: any }>(
   };
 };
 
+// export const useGlobalOverride = <TProps extends { [key: string]: any }>(
+//   componentName: string,
+//   props: TProps & { style?: TStyle; variant?: string },
+// ): TOverride<TProps> => {
+//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//   const { variant = 'default', size, override, style, ...newOtherProps } = props || {};
+//   const otherProps = useMemoObject(newOtherProps);
+
+//   const theme = useTheme();
+//   const { overrides } = theme;
+
+//   // extract props style from default
+//   const defaultOverridedStyles = useMemo(() => override || {}, [override, componentName]);
+
+//   const variantOverridedStyles = useMemo(() => override?.[componentName]?.[variant] || {}, [
+//     override,
+//     componentName,
+//     variant,
+//   ]);
+
+//   const overridedStyles = useMemo(() => {
+//     if (variant === 'default') return defaultOverridedStyles;
+
+//     const styleKeys = [
+//       // @ts-ignore
+//       ...new Set([...Object.keys(defaultOverridedStyles || {}), ...Object.keys(variantOverridedStyles || {})]),
+//     ];
+//     return styleKeys.reduce<{ [key: string]: TStyle }>((result, key) => {
+//       result[key] = [defaultOverridedStyles?.[key], variantOverridedStyles?.[key]];
+//       return result;
+//     }, {});
+//   }, [defaultOverridedStyles, variantOverridedStyles]);
+
+//   const finalProps = useMemo(() => ({ ...overridedProps, ...otherProps }), [overridedProps, otherProps]);
+//   const finalStyles = useMemo(() => overridedStyles || {}, [overridedStyles]);
+
+//   return {
+//     /* @ts-ignore */
+//     props: finalProps,
+//     styles: finalStyles,
+//   };
+// };
+
 export const useMemoStyles = (styles: TStyle[]): TStyle => useMemo<TStyle>(() => styles, styles);
