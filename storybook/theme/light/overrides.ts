@@ -31,23 +31,7 @@ const overrides: Overrides<unknown> = {
     },
   },
   Button: {
-    default: {
-      styles: StyleSheet.create({
-        root: {
-          flexDirection: 'row',
-        },
-        button: {
-          backgroundColor: palette.primaryColor,
-          paddingHorizontal: 24,
-          borderRadius: 8,
-          height: 38,
-        },
-        text: {
-          color: 'white',
-          fontWeight: 'bold',
-        },
-      }),
-    },
+    default: {},
     outline: {
       styles: StyleSheet.create({
         button: {

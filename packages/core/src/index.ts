@@ -1,2 +1,2 @@
 export * from './ui';
-export * from './uiNext';
+export * from './ui-next';
