@@ -30,6 +30,9 @@ const overrides: Overrides<unknown> = {
       }),
     },
   },
+  ButtonNext: {
+    default: {},
+  },
   Button: {
     default: {
       styles: StyleSheet.create({

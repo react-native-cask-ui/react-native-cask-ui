@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react';
 import TaipeiImage from '../assets/img_taipei.jpg';
 
 export default {
-  title: 'Components/Image',
+  title: 'Components/Legacy/Image',
   component: Image,
   argTypes: {
     variant: {},

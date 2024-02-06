@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react';
 import Feather from 'react-native-vector-icons/Feather';
 
 export default {
-  title: 'Components/Button',
+  title: 'Components/Legacy/Button',
   component: Button,
   argTypes: {
     variant: {},

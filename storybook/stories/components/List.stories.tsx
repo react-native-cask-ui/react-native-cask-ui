@@ -22,7 +22,7 @@ const getAccessoryType = (n: number): AccessoryType | undefined => {
 };
 
 export default {
-  title: 'Components/List',
+  title: 'Components/Legacy/List',
   component: List,
   argTypes: {
     variant: {},
