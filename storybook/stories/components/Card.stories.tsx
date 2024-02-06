@@ -3,7 +3,7 @@ import { Card, CardProps, Text } from '@react-native-cask-ui/core';
 import { Story, Meta } from '@storybook/react';
 
 export default {
-  title: 'Components/Card',
+  title: 'Components/Legacy/Card',
   component: Card,
   argTypes: {
     variant: {},

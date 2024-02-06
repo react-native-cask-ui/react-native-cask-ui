@@ -30,8 +30,27 @@ const overrides: Overrides<unknown> = {
       }),
     },
   },
-  Button: {
+  ButtonNext: {
     default: {},
+  },
+  Button: {
+    default: {
+      styles: StyleSheet.create({
+        root: {
+          flexDirection: 'row',
+        },
+        button: {
+          backgroundColor: palette.primaryColor,
+          paddingHorizontal: 24,
+          borderRadius: 8,
+          height: 38,
+        },
+        text: {
+          color: 'white',
+          fontWeight: 'bold',
+        },
+      }),
+    },
     outline: {
       styles: StyleSheet.create({
         button: {

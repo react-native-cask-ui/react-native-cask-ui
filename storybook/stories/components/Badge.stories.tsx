@@ -3,7 +3,7 @@ import { Badge, BadgeProps } from '@react-native-cask-ui/core';
 import { Story, Meta } from '@storybook/react';
 
 export default {
-  title: 'Components/Badge',
+  title: 'Components/Legacy/Badge',
   component: Badge,
   argTypes: {
     variant: {},

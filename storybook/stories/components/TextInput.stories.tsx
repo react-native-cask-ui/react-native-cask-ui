@@ -3,7 +3,7 @@ import { TextInput, TextInputProps } from '@react-native-cask-ui/core';
 import { Story, Meta } from '@storybook/react';
 
 export default {
-  title: 'Components/TextInput',
+  title: 'Components/Legacy/TextInput',
   component: TextInput,
   argTypes: {
     variant: {},

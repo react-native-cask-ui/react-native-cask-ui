@@ -133,7 +133,7 @@ const defaultStyles = StyleSheet.create({
   textDisabled: {},
 });
 
-export interface ButtonV2Props extends $Diff<TouchableOpacityProps, { style?: unknown; children?: unknown }> {
+export interface ButtonNextProps extends $Diff<TouchableOpacityProps, { style?: unknown; children?: unknown }> {
   /**
    * The variant to use.
    */
@@ -160,9 +160,9 @@ export interface ButtonV2Props extends $Diff<TouchableOpacityProps, { style?: un
   sx?: TSxProp;
 }
 
-const Button: React.FC<ButtonV2Props> = React.memo<ButtonV2Props>(props => {
+const Button: React.FC<ButtonNextProps> = React.memo<ButtonNextProps>(props => {
   const { variant = DEFAULT_VARIANT, size = DEFAULT_SIZE, icon, title, disabled, sx, ...otherProps } = props;
-  const { styles: globalOverrideStyle } = useOverride<ButtonV2Props>('Button', { variant: 'default' }); // always use default variant to override for v1 override hook
+  const { styles: globalOverrideStyle } = useOverride<ButtonNextProps>('ButtonNext', { variant: 'default' }); // always use default variant to override for v1 override hook
   const { palette } = useTheme();
 
   const variantWithPalette: TSxProp = useMemo(() => colorTokenHandler(variantOfStyles?.[variant], palette), [palette]);

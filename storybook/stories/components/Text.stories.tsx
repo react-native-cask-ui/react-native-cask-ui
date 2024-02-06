@@ -7,7 +7,7 @@ const LONG_TEXT =
 const SHORT_TEXT = 'Lorem ipsum';
 
 export default {
-  title: 'Components/Text',
+  title: 'Components/Legacy/Text',
   component: Text,
   argTypes: {
     variant: {},
