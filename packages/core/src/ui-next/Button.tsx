@@ -5,8 +5,6 @@ import { $Diff } from 'utility-types';
 
 import type { TouchableOpacityProps, ViewStyle, TextStyle, ImageStyle } from 'react-native';
 
-import colorTokenHandler from '../utils/colorTokenHandler';
-
 const DEFAULT_VARIANT = 'default';
 const DEFAULT_SIZE = 'medium';
 
@@ -74,43 +72,43 @@ const variantOfSize = {
   },
 };
 
-const variantOfStyles = {
+const variantOfStyles = (palette: TPalette) => ({
   default: {
     button: {
-      backgroundColor: 'palette.primaryColor',
+      backgroundColor: palette.primaryColor,
       borderRadius: 8,
     },
     text: {
-      color: 'palette.white',
+      color: palette.white,
     },
   },
   outline: {
     button: {
       backgroundColor: 'transparent',
-      borderColor: 'palette.lightGray',
+      borderColor: palette.lightGray,
       borderRadius: 8,
       borderWidth: 2,
     },
     text: {
-      color: 'palette.dark',
+      color: palette.dark,
     },
   },
   rounded: {
     button: {
-      backgroundColor: 'palette.primaryColor',
+      backgroundColor: palette.primaryColor,
       borderRadius: 24,
     },
     text: {
-      color: 'palette.white',
+      color: palette.white,
     },
   },
   plainText: {
     button: {},
     text: {
-      color: 'palette.dark',
+      color: palette.dark,
     },
   },
-};
+});
 
 const defaultStyles = StyleSheet.create({
   root: {
@@ -165,7 +163,7 @@ const Button: React.FC<ButtonNextProps> = React.memo<ButtonNextProps>(props => {
   const { styles: globalOverrideStyle } = useOverride<ButtonNextProps>('ButtonNext', { variant: 'default' }); // always use default variant to override for v1 override hook
   const { palette } = useTheme();
 
-  const variantWithPalette: TSxProp = useMemo(() => colorTokenHandler(variantOfStyles?.[variant], palette), [palette]);
+  const variantWithPalette: TSxProp = useMemo(() => variantOfStyles(palette)?.[variant], [palette]);
 
   const styleVariant = useMemo(() => StyleSheet.create(variantWithPalette), [variant, palette]);
   const sizeVariant = useMemo(() => StyleSheet.create(variantOfSize?.[size]), [size]);
