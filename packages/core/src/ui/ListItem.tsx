@@ -236,7 +236,7 @@ const IconImageView = React.memo<ListItemProps>(props => {
   const finalIconStyle = useMemoStyles([defaultStyles.icon, styles.icon, disabled ? finalIconDisabledStyle : null]);
 
   return (
-    <View style={{ alignSelf: 'center' }}>
+    <View style={{ alignSelf: 'center', marginRight: 16 }}>
       {/* @ts-ignore */}
       {iconView || <Image source={icon} style={finalIconStyle} />}
     </View>
@@ -247,8 +247,6 @@ const ContentView = React.memo<ListItemProps>(props => {
   const { props: overridedProps, styles } = useOverride('ListItem', props);
   const {
     itemType,
-    icon,
-    iconView,
     accessoryType,
     disabled,
     text,
@@ -260,21 +258,7 @@ const ContentView = React.memo<ListItemProps>(props => {
     inputUnit,
     keyboardType,
   } = overridedProps;
-
-  // FIXME: find a better way to define margin 16
-  const contentMargins = {};
-  /* @ts-ignore */
-  if (icon || iconView) contentMargins.marginLeft = 16;
-  if (
-    accessoryType &&
-    accessoryType !== 'none' &&
-    !(accessoryType === 'disclosureIndicator' && Platform.OS === 'android')
-  ) {
-    /* @ts-ignore */
-    contentMargins.marginRight = 16;
-  }
-
-  const finalContentStyle = useMemoStyles([defaultStyles.content, contentMargins, styles.content]);
+  const finalContentStyle = useMemoStyles([defaultStyles.content, styles.content]);
   const finalTextDisabledStyle = useMemoStyles([defaultStyles.textDisabled, styles.textDisabled]);
   const finalTextStyle = useMemoStyles([defaultStyles.text, styles.text, disabled ? finalTextDisabledStyle : null]);
   const finalDetailTextDisabledStyle = useMemoStyles([defaultStyles.DetailTextDisabled, styles.DetailTextDisabled]);
@@ -364,7 +348,7 @@ const AccessoryView = React.memo<ListItemProps>(props => {
     case 'disclosureIndicator':
       if (Platform.OS !== 'android') {
         return (
-          <View style={{ alignSelf: 'center' }}>
+          <View style={{ alignSelf: 'center', marginLeft: 16 }}>
             <DisclosureIndicator />
           </View>
         );

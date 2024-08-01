@@ -66,12 +66,13 @@ export interface ScreenProps {
     animated?: boolean;
     hidden?: boolean;
   };
+  disableStatusBar?: boolean; // when screen in tabs, they all rendered at same time, we should only show the focused one
   children: ReactNode;
 }
 
 export default React.memo<ScreenProps>(props => {
   const { props: overridedProps, styles } = useOverride('Screen', props);
-  const { padding, topSafe, bottomSafe, statusBar: statusBarProps, children } = overridedProps;
+  const { padding, topSafe, bottomSafe, statusBar: statusBarProps, children, disableStatusBar } = overridedProps;
 
   const finalStyle = useMemoStyles([defaultStyles.root, styles.root]);
   const finalSafeAreaStyle = useMemoStyles([defaultStyles.safeArea, styles.safeArea]);
@@ -88,7 +89,7 @@ export default React.memo<ScreenProps>(props => {
       <SafeAreaView forceInset={forceInset} style={finalSafeAreaStyle}>
         <View style={finalInnerStyle}>{children}</View>
       </SafeAreaView>
-      <StatusBar {...statusBarProps} />
+      {!disableStatusBar && <StatusBar {...statusBarProps} />}
     </View>
   );
 });

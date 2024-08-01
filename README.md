@@ -28,8 +28,6 @@ $ yarn storybook
 | ListItem             |           | ✔️     | ✔️            | ✔️        |           |          |
 | LoadingSpinner       |           | ✔️     |              | ✔️        |           | ✔️        |
 | Modal                |           | ✔️     |              |          |           |          |
-| Pager                |           | ✔️     |              | ✔️        |           |          |
-| PagerConfig          | -         | ✔️     |              | ✔️        |           |          |
 | Rating               |           | ✔️     | ✔️            | ✔️        |           |          |
 | ReadMore             |           | ✔️     | ✔️            | ✔️        |           |          |
 | Screen               | -         | ✔️     | ✔️            | ✔️        | ✔️         |          |

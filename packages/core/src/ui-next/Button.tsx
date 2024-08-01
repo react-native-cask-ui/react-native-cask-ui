@@ -221,9 +221,17 @@ const Button: React.FC<ButtonNextProps> = React.memo<ButtonNextProps>(props => {
   return (
     <TouchableOpacity disabled={disabled} {...otherProps}>
       <View style={elementRootStyle}>
-        <View style={elementButtonStyle}>
+        <View
+          style={[
+            {
+              // library rn doesn't support gap, it will be eliminated by stylesheet.create
+              gap: 8,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } as any,
+            elementButtonStyle,
+          ]}
+        >
           {icon && <View style={elementIconStyle}>{icon}</View>}
-          {icon && title && <View style={{ width: 8 }} />}
           {!!title && <Text style={elementTextStyle}>{title}</Text>}
         </View>
       </View>
