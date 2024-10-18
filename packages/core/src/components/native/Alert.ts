@@ -1,4 +1,4 @@
-import { Alert, AlertButton } from 'react-native';
+import { Alert, AlertButton, Platform } from 'react-native';
 
 export interface AlertAction {
   text?: string;
@@ -30,29 +30,43 @@ export interface ChooseActions {
 }
 
 const alert = (title: string, message?: string | null, action?: AlertAction): void => {
-  Alert.alert(title, message || undefined, action ? [action] : undefined, { cancelable: false });
+  if (Platform.OS === 'web') {
+    // eslint-disable-next-line no-alert
+    window.alert(`${title}\n\n${message}`);
+  } else {
+    Alert.alert(title, message || undefined, action ? [action] : undefined, { cancelable: false });
+  }
 };
 
 const confirm = (title: string, message?: string | null, actions?: ConfirmActions): void => {
   const { positive, negative } = actions || {};
 
-  Alert.alert(
-    title,
-    message || undefined,
-    [
-      {
-        text: negative?.text,
-        onPress: negative?.onPress,
-        style: 'cancel',
-      },
-      {
-        text: positive?.text,
-        onPress: positive?.onPress,
-        style: positive?.style,
-      },
-    ],
-    { cancelable: false },
-  );
+  if (Platform.OS === 'web') {
+    // eslint-disable-next-line no-alert
+    if (window.confirm(`${title}\n\n${message}`)) {
+      positive?.onPress?.();
+    } else {
+      negative?.onPress?.();
+    }
+  } else {
+    Alert.alert(
+      title,
+      message || undefined,
+      [
+        {
+          text: negative?.text,
+          onPress: negative?.onPress,
+          style: 'cancel',
+        },
+        {
+          text: positive?.text,
+          onPress: positive?.onPress,
+          style: positive?.style,
+        },
+      ],
+      { cancelable: false },
+    );
+  }
 };
 
 const choose = (title: string, message?: string | null, actions?: ChooseActions): void => {
@@ -69,7 +83,11 @@ const choose = (title: string, message?: string | null, actions?: ChooseActions)
       ]
     : [];
 
-  Alert.alert(title, message || undefined, [...buttons, ...options], { cancelable: false });
+  if (Platform.OS === 'web') {
+    console.warn('Not support on Web');
+  } else {
+    Alert.alert(title, message || undefined, [...buttons, ...options], { cancelable: false });
+  }
 };
 
 export default {
