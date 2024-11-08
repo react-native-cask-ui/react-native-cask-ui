@@ -9,8 +9,10 @@ import {
   PanResponder,
   NativeSyntheticEvent,
   ScrollView,
+  GestureResponderEvent,
+  Pressable,
 } from 'react-native';
-import { TabView, TabBar, Pager, SceneRendererProps } from 'react-native-tab-view';
+import { TabView, TabBar, SceneRendererProps, TabBarItemProps } from 'react-native-tab-view';
 import { useOverride } from '@react-native-cask-ui/theme';
 
 import PagerConfig from './PagerConfig';
@@ -29,6 +31,7 @@ const defaultStyles = StyleSheet.create({
     height: 37,
     minHeight: 37,
     padding: 0,
+    justifyContent: 'center',
   },
   tabLabel: {
     textAlign: 'center',
@@ -36,7 +39,6 @@ const defaultStyles = StyleSheet.create({
     lineHeight: 19,
     fontWeight: 'bold',
     backgroundColor: 'transparent',
-    marginBottom: -3, // track
   },
   tabLabelActive: {},
   tabLabelInactive: {},
@@ -58,12 +60,6 @@ const fixedStyles = StyleSheet.create({
 const initialLayout = {
   height: 0,
   width: Dimensions.get('window').width,
-};
-
-type Route = {
-  index: number;
-  key: string;
-  title?: string;
 };
 
 type Props = {
@@ -127,6 +123,8 @@ export default React.memo<Props>(props => {
   const [tabBarHeight, setTabBarHeight] = useState(0);
   const [collapsibleHeight, setCollapsibleHeight] = useState(0);
 
+  const [layoutReady, setLayoutReady] = useState(false);
+
   useEffect(() => {
     // create scrollView references
     children.forEach((_, i) => {
@@ -136,12 +134,14 @@ export default React.memo<Props>(props => {
 
     // trigger track at the first time
     if (trackID) PagerConfig.get().track(trackID, keyExtractor(initialPage), initialPage);
-  }, []);
+  }, []); // probably should be an empty dependency, because it can be trigger at the first time
 
-  const getScrollView = useCallback((index: number) => {
-    // $FlowFixMe
-    return scrollViews[index].current;
-  }, []);
+  const getScrollView = useCallback(
+    (index: number) => {
+      return scrollViews[index].current;
+    },
+    [scrollViews],
+  );
 
   const getCurrentScrollY = useCallback(() => {
     return scrollYs.current[currentIndex];
@@ -218,7 +218,7 @@ export default React.memo<Props>(props => {
         }
       });
     },
-    [currentIndex, collapsibleHeight, scrollToY],
+    [scrollViews, currentIndex, collapsibleHeight, scrollToY],
   );
 
   const triggerIndexChange = useCallback(
@@ -248,7 +248,17 @@ export default React.memo<Props>(props => {
         }
       }
     },
-    [currentIndex, renderHeader, renderStickyHeader, onPageChange, trackID, keyExtractor, scrollToY, alignScrollViews],
+    [
+      currentIndex,
+      renderHeader,
+      renderStickyHeader,
+      onPageChange,
+      trackID,
+      keyExtractor,
+      scrollToY,
+      getCurrentScrollY,
+      alignScrollViews,
+    ],
   );
 
   const handleIndexChange = useCallback((index: number) => triggerIndexChange(index), [triggerIndexChange]);
@@ -293,6 +303,19 @@ export default React.memo<Props>(props => {
     setTabBarHeight(height);
   }, []);
 
+  // to fix the scene flicking that caused by onLayout be triggered multiple times
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // set layout ready at the last time onLayout been triggered
+      setLayoutReady(true);
+    }, 0);
+
+    return () => {
+      setLayoutReady(false);
+      clearTimeout(timer);
+    };
+  }, [headerHeight, tabBarHeight]);
+
   // setup panResponder
   const onPanResponderGrant = useCallback(() => {
     panStartScrollY.current = getCurrentScrollY();
@@ -300,7 +323,7 @@ export default React.memo<Props>(props => {
   }, [getCurrentScrollY]);
 
   const onPanResponderMove = useCallback(
-    (_, { dy }) => {
+    (e: GestureResponderEvent, { dy }: { dy: number }) => {
       const y = panStartScrollY.current - dy;
       scrollToY(currentIndex, { y, animated: false, dragging: true });
     },
@@ -308,7 +331,7 @@ export default React.memo<Props>(props => {
   );
 
   const onPanResponderRelease = useCallback(
-    (_, { dy, vy }) => {
+    (e: GestureResponderEvent, { dy, vy }: { dy: number; vy: number }) => {
       const y = panStartScrollY.current - dy;
       alignScrollViews(y);
 
@@ -393,9 +416,17 @@ export default React.memo<Props>(props => {
   }, [initialPage, triggerIndexChange]);
 
   const renderLabel = useCallback(
-    ({ route }: { route: Route }) => {
-      const { index } = route;
-      const title = titles[index];
+    (itemProps: TabBarItemProps<any>) => {
+      const {
+        route,
+        defaultTabWidth,
+        style: tabStyle,
+        labelStyle,
+        onPress,
+        onLongPress,
+        labelAllowFontScaling = false,
+      } = itemProps;
+      const { index, title, key } = route;
 
       const isSelected = currentIndex === index;
       const tabLabelStyle = isSelected
@@ -403,16 +434,18 @@ export default React.memo<Props>(props => {
         : [defaultStyles.tabLabelInactive, styles.tabLabelInactive];
 
       const defaultTab = (
-        <Text style={[defaultStyles.tabLabel, styles.tabLabel, tabLabelStyle]} allowFontScaling={false}>
-          {title}
-        </Text>
+        <Pressable key={key} style={[tabStyle, { width: defaultTabWidth }]} onPress={onPress} onLongPress={onLongPress}>
+          <Text style={[labelStyle, tabLabelStyle]} allowFontScaling={labelAllowFontScaling}>
+            {title}
+          </Text>
+        </Pressable>
       );
       if (renderTab) {
         return renderTab(index, isSelected, defaultTab);
       }
       return defaultTab;
     },
-    [currentIndex, titles, renderTab],
+    [currentIndex, renderTab, styles],
   );
 
   const renderTabBar = useCallback(
@@ -430,9 +463,9 @@ export default React.memo<Props>(props => {
           style={[defaultStyles.tabBar, styles.tabBar]}
           indicatorStyle={[defaultStyles.indicator, styles.indicator]}
           tabStyle={[defaultStyles.tab, styles.tab]}
+          labelStyle={[defaultStyles.tabLabel, styles.tabLabel]}
           /* @ts-ignore */
-          renderLabel={renderLabel}
-          useNativeDriver
+          renderTabBarItem={renderLabel}
         />
       );
       return !renderHeader && !renderStickyHeader ? (
@@ -462,31 +495,21 @@ export default React.memo<Props>(props => {
       renderLabel,
       handleHeaderLayout,
       handleTabBarLayout,
+      styles,
     ],
-  );
-
-  const renderPager = useCallback(
-    (pagerProps: any) => {
-      // if header is not ready, don't display Pager content too soon
-      const hidePager = (renderHeader || renderStickyHeader) && !headerHeight;
-      return (
-        <View style={{ flex: 1, opacity: hidePager ? 0 : 1 }}>
-          <Pager {...pagerProps} />
-        </View>
-      );
-    },
-    [renderHeader, renderStickyHeader, headerHeight],
   );
 
   const renderScene = useCallback(
     ({ route, jumpTo }: SceneRendererProps & { route: { index: number; key: string } }) => {
       const { index, key } = route;
 
+      // if header is not ready, don't display Pager content too soon
+      const hidePager = (renderHeader || renderStickyHeader) && (!layoutReady || !headerHeight || !tabBarHeight);
+
       return (
         /* @ts-ignore */
-        <View style={fixedStyles.fill} key={key} route={route} jumpTo={jumpTo}>
+        <View style={[fixedStyles.fill, { opacity: hidePager ? 0 : 1 }]} key={key} route={route} jumpTo={jumpTo}>
           {React.cloneElement(children[index], {
-            /* @ts-ignore */
             pager: this,
             pageIndex: index,
             ...(!renderHeader && !renderStickyHeader
@@ -513,9 +536,11 @@ export default React.memo<Props>(props => {
       );
     },
     [
+      scrollViews,
       renderHeader,
       renderStickyHeader,
       children,
+      layoutReady,
       headerHeight,
       tabBarHeight,
       tabViewHeight,
@@ -532,7 +557,7 @@ export default React.memo<Props>(props => {
         key: keyExtractor(index),
         title: titles?.[index],
       })),
-    [titles, children],
+    [titles, keyExtractor, children],
   );
 
   const navigationState = useMemo(
@@ -547,7 +572,6 @@ export default React.memo<Props>(props => {
     <View style={fixedStyles.fill} onLayout={handleTabViewLayout}>
       <TabView
         navigationState={navigationState}
-        renderPager={renderPager}
         renderScene={renderScene}
         renderTabBar={renderTabBar}
         onIndexChange={handleIndexChange}

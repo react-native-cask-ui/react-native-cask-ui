@@ -22,7 +22,7 @@
     "react-native-draggable-flatlist": "^4.0.1",
     "react-native-svg": "12.5.1",
     "react-native-svg-web": "^1.0.9",
-    "react-native-tab-view": "2.14.3",
+    "react-native-tab-view": "4.0.0",
     "react-navigation-header-buttons": "^3.0.1",
     "utility-types": "^3.10.0"
   },
