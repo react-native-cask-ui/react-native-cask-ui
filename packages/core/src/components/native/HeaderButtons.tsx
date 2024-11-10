@@ -1,63 +1,67 @@
-import React, { ComponentType, ReactNode, ReactElement, useCallback } from 'react';
+import React, { ComponentType, ReactNode, useCallback } from 'react';
+import { View } from 'react-native';
 import {
   HeaderButtons as OriginalHeaderButtons,
   HeaderButton as OriginalHeaderButton,
-  HeaderItemProps,
+  HeaderButtonProps as OriginalHeaderButtonProps,
+  Item,
+  HiddenItem,
+  OverflowMenu,
+  Divider,
 } from 'react-navigation-header-buttons';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { useOverride } from '@react-native-cask-ui/theme';
 
-export type HeaderButtonsItemProps = {
-  variant?: string;
-  title: string;
-  iconName?: string;
-  iconAliases?: {
-    [key: string]: string;
-  };
-  show?: string;
-  onPress?: () => void;
-  IconComponent?: ReactNode;
-  ButtonElement?: ReactElement;
-  testID?: string;
-};
-
-const HeaderButtonsItem = React.memo<HeaderButtonsItemProps>(props => {
-  const { props: overridedProps } = useOverride('HeaderButtons', props);
-  const { iconName, iconAliases, IconComponent = EvilIcons, onPress, ...otherProps } = overridedProps;
-  const newIconName = iconName ? iconAliases?.[iconName] || iconName : undefined;
-
-  return (
-    <OriginalHeaderButton
-      iconName={newIconName}
-      // @ts-ignore
-      IconComponent={IconComponent}
-      onPress={onPress}
-      buttonStyle={{ opacity: onPress ? 1 : 0.3 }}
-      {...otherProps}
-    />
-  );
-});
-
 export type HeaderButtonsProps = {
   variant?: string;
   children: ReactNode;
+  iconSize?: number;
+  iconAliases?: {
+    [key: string]: string;
+  };
+  color?: string;
+  IconComponent?: ComponentType<any>;
 };
 
 const HeaderButtons = React.memo<HeaderButtonsProps>(props => {
-  const { variant, children } = props;
+  const { props: overridedProps, styles } = useOverride('HeaderButtons', props);
+  const { iconSize, iconAliases, color, IconComponent = EvilIcons, children } = overridedProps;
 
-  const renderHeaderButton = useCallback((itemProps: HeaderButtonsItemProps) => {
-    return <HeaderButtonsItem variant={variant} {...itemProps} />;
-  }, []);
+  const renderHeaderButton = useCallback(
+    (buttonProps: OriginalHeaderButtonProps) => {
+      const { iconName, ...otherProps } = buttonProps;
+      const newIconName = iconName ? iconAliases?.[iconName] || iconName : undefined;
 
-  // @ts-ignore
-  return <OriginalHeaderButtons HeaderButtonComponent={renderHeaderButton}>{children}</OriginalHeaderButtons>;
+      return (
+        <OriginalHeaderButton
+          iconName={newIconName}
+          iconSize={iconSize}
+          color={color}
+          IconComponent={IconComponent}
+          {...otherProps}
+        />
+      );
+    },
+    [iconSize, iconAliases, color, IconComponent],
+  );
+
+  return (
+    <View style={styles.root}>
+      <OriginalHeaderButtons HeaderButtonComponent={renderHeaderButton}>{children}</OriginalHeaderButtons>
+    </View>
+  );
 });
 
 const HeaderButtonsWithStatic = HeaderButtons as React.NamedExoticComponent<HeaderButtonsProps> & {
-  Item: ComponentType<HeaderItemProps>;
+  Item: typeof Item;
+  HiddenItem: typeof HiddenItem;
+  OverflowMenu: typeof OverflowMenu;
+  Divider: typeof Divider;
 };
 
-HeaderButtonsWithStatic.Item = OriginalHeaderButtons.Item;
+HeaderButtonsWithStatic.Item = Item;
+HeaderButtonsWithStatic.HiddenItem = HiddenItem;
+HeaderButtonsWithStatic.OverflowMenu = OverflowMenu;
+HeaderButtonsWithStatic.Divider = Divider;
 
 export default HeaderButtonsWithStatic;

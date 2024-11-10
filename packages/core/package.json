@@ -23,7 +23,7 @@
     "react-native-svg": "12.5.1",
     "react-native-svg-web": "^1.0.9",
     "react-native-tab-view": "4.0.0",
-    "react-navigation-header-buttons": "^3.0.1",
+    "react-navigation-header-buttons": "^10.0.0",
     "utility-types": "^3.10.0"
   },
   "devDependencies": {
