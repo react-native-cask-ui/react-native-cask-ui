@@ -15,8 +15,6 @@ import {
 import { TabView, TabBar, SceneRendererProps, TabBarItemProps } from 'react-native-tab-view';
 import { useOverride } from '@react-native-cask-ui/theme';
 
-import PagerConfig from './PagerConfig';
-
 const defaultStyles = StyleSheet.create({
   indicator: {
     height: 3,
@@ -66,10 +64,10 @@ type Props = {
   variant?: string;
   keyExtractor: (index: number) => string;
   titles: Array<string>;
-  trackID?: string;
   renderTab?: (index: number, isSelected: boolean, defaultTab: ReactNode) => ReactNode;
-  initialPage?: number;
-  onPageChange?: (index: number) => void; // triggered at the scrolling stop, but not at the first time mount
+  pageIndex: number;
+  onPageChange: (index: number) => void; // triggered at the scrolling stop, but not at the first time mount
+  triggerPageChangeAtFirstTime?: boolean;
   swipeEnabled?: boolean;
   placeholder?: ReactNode;
   renderHeader?: (props: { offset: Animated.Value }) => ReactNode;
@@ -88,7 +86,7 @@ type Props = {
 export default React.memo<Props>(props => {
   const { props: overridedProps, styles } = useOverride('Pager', props);
   const {
-    initialPage = 0.0,
+    pageIndex,
     swipeEnabled = true,
     keyExtractor,
     titles,
@@ -97,7 +95,7 @@ export default React.memo<Props>(props => {
     renderStickyHeader,
     renderTab,
     onPageChange,
-    trackID,
+    triggerPageChangeAtFirstTime = false,
     children,
   } = overridedProps;
 
@@ -117,11 +115,12 @@ export default React.memo<Props>(props => {
   const scrollMomentumY = useRef(new Animated.Value(0));
 
   const [scrollViews] = useState(children.map(() => React.createRef<ScrollView>()));
-  const [currentIndex, setCurrentIndex] = useState(initialPage);
   const [tabViewHeight, setTabViewHeight] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [tabBarHeight, setTabBarHeight] = useState(0);
   const [collapsibleHeight, setCollapsibleHeight] = useState(0);
+
+  const currentIndex = pageIndex;
 
   const [layoutReady, setLayoutReady] = useState(false);
 
@@ -132,9 +131,12 @@ export default React.memo<Props>(props => {
       scrollHeights.current[i] = 0;
     });
 
-    // trigger track at the first time
-    if (trackID) PagerConfig.get().track(trackID, keyExtractor(initialPage), initialPage);
-  }, []); // probably should be an empty dependency, because it can be trigger at the first time
+    // trigger page change at the first time
+    if (triggerPageChangeAtFirstTime) {
+      onPageChange(pageIndex);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // must be trigger only once at the first time
 
   const getScrollView = useCallback(
     (index: number) => {
@@ -230,13 +232,8 @@ export default React.memo<Props>(props => {
       }
 
       if (index !== currentIndex) {
-        // move page
-        setCurrentIndex(index);
-
         // onPageChange event
         if (onPageChange) onPageChange(index);
-        // trigger track
-        if (trackID) PagerConfig.get().track(trackID, keyExtractor(index), index);
         // withPagerEvents
         if (pages.current[index]) {
           const { pageDidEnter } = pages.current[index];
@@ -248,17 +245,7 @@ export default React.memo<Props>(props => {
         }
       }
     },
-    [
-      currentIndex,
-      renderHeader,
-      renderStickyHeader,
-      onPageChange,
-      trackID,
-      keyExtractor,
-      scrollToY,
-      getCurrentScrollY,
-      alignScrollViews,
-    ],
+    [currentIndex, renderHeader, renderStickyHeader, onPageChange, scrollToY, getCurrentScrollY, alignScrollViews],
   );
 
   const handleIndexChange = useCallback((index: number) => triggerIndexChange(index), [triggerIndexChange]);
@@ -308,7 +295,7 @@ export default React.memo<Props>(props => {
     const timer = setTimeout(() => {
       // set layout ready at the last time onLayout been triggered
       setLayoutReady(true);
-    }, 0);
+    }, 100);
 
     return () => {
       setLayoutReady(false);
@@ -405,16 +392,6 @@ export default React.memo<Props>(props => {
     });
   }, [currentIndex, scrollToY, alignScrollViews]);
 
-  // if initialPage change, should triggerIndexChange
-  const lastInitialPage = useRef(initialPage);
-  useEffect(() => {
-    if (lastInitialPage.current !== initialPage) {
-      requestAnimationFrame(() => {
-        triggerIndexChange(initialPage);
-      });
-    }
-  }, [initialPage, triggerIndexChange]);
-
   const renderLabel = useCallback(
     (itemProps: TabBarItemProps<any>) => {
       const {
@@ -510,7 +487,6 @@ export default React.memo<Props>(props => {
         /* @ts-ignore */
         <View style={[fixedStyles.fill, { opacity: hidePager ? 0 : 1 }]} key={key} route={route} jumpTo={jumpTo}>
           {React.cloneElement(children[index], {
-            pager: this,
             pageIndex: index,
             ...(!renderHeader && !renderStickyHeader
               ? {}
