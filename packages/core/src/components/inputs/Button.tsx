@@ -71,51 +71,52 @@ export interface ButtonProps extends $Diff<TouchableOpacityProps, { style?: unkn
   loadingIndicatorSize?: number | 'small' | 'large' | undefined;
 }
 
-const Button: React.FC<ButtonProps> = React.memo<ButtonProps>(props => {
-  const { props: overridedProps, styles } = useOverride<ButtonProps>('Button', props);
-  const {
-    icon,
-    title,
-    disabled,
-    loading,
-    loadingIndicatorColor = 'white',
-    loadingIndicatorSize = 'small',
-    ...otherProps
-  } = overridedProps;
+export default React.memo<ButtonProps>(
+  React.forwardRef((props, ref) => {
+    const { props: overridedProps, styles } = useOverride<ButtonProps>('Button', props);
+    const {
+      icon,
+      title,
+      disabled,
+      loading,
+      loadingIndicatorColor = 'white',
+      loadingIndicatorSize = 'small',
+      ...otherProps
+    } = overridedProps;
 
-  const finalStyle = useMemoStyles([defaultStyles.root, styles.root]);
-  const finalButtonDisabledStyle = useMemoStyles([defaultStyles.buttonDisabled, styles.disabled]);
-  const finalButtonStyle = useMemoStyles([
-    defaultStyles.button,
-    styles.button,
-    disabled ? finalButtonDisabledStyle : null,
-  ]);
-  const finalLoadingStyle = useMemoStyles([defaultStyles.loading, styles.loading]);
-  const finalIconDisabledStyle = useMemoStyles([defaultStyles.iconDisabled, styles.iconDisabled]);
-  const finalIconStyle = useMemoStyles([defaultStyles.icon, styles.icon, disabled ? finalIconDisabledStyle : null]);
-  const finalTextDisabledStyle = useMemoStyles([defaultStyles.textDisabled, styles.textDisabled]);
-  const finalTextStyle = useMemoStyles([defaultStyles.text, styles.text, disabled ? finalTextDisabledStyle : null]);
+    const finalStyle = useMemoStyles([defaultStyles.root, styles.root]);
+    const finalButtonDisabledStyle = useMemoStyles([defaultStyles.buttonDisabled, styles.disabled]);
+    const finalButtonStyle = useMemoStyles([
+      defaultStyles.button,
+      styles.button,
+      disabled ? finalButtonDisabledStyle : null,
+    ]);
+    const finalLoadingStyle = useMemoStyles([defaultStyles.loading, styles.loading]);
+    const finalIconDisabledStyle = useMemoStyles([defaultStyles.iconDisabled, styles.iconDisabled]);
+    const finalIconStyle = useMemoStyles([defaultStyles.icon, styles.icon, disabled ? finalIconDisabledStyle : null]);
+    const finalTextDisabledStyle = useMemoStyles([defaultStyles.textDisabled, styles.textDisabled]);
+    const finalTextStyle = useMemoStyles([defaultStyles.text, styles.text, disabled ? finalTextDisabledStyle : null]);
 
-  // render
-  return (
-    <View style={finalStyle}>
-      <TouchableOpacity disabled={disabled} {...otherProps}>
-        <View style={finalButtonStyle}>
-          {loading ? (
-            <View style={finalLoadingStyle}>
-              <ActivityIndicator color={loadingIndicatorColor} size={loadingIndicatorSize} />
-            </View>
-          ) : (
-            <>
-              {icon && <View style={finalIconStyle}>{icon}</View>}
-              {icon && title && <View style={{ width: 8 }} />}
-              {title && <Text style={finalTextStyle}>{title}</Text>}
-            </>
-          )}
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
-});
-
-export default Button;
+    // render
+    return (
+      <View style={finalStyle}>
+        {/* @ts-ignore */}
+        <TouchableOpacity ref={ref} disabled={disabled} {...otherProps}>
+          <View style={finalButtonStyle}>
+            {loading ? (
+              <View style={finalLoadingStyle}>
+                <ActivityIndicator color={loadingIndicatorColor} size={loadingIndicatorSize} />
+              </View>
+            ) : (
+              <>
+                {icon && <View style={finalIconStyle}>{icon}</View>}
+                {icon && title && <View style={{ width: 8 }} />}
+                {title && <Text style={finalTextStyle}>{title}</Text>}
+              </>
+            )}
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  }),
+);
