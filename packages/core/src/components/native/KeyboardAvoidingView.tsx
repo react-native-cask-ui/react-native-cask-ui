@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import { View, Keyboard } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { KeyboardAvoidingViewProps } from './types';
+export type KeyboardAvoidingViewProps = {
+  bottomSafe?: boolean;
+  children: ReactNode;
+};
 
 export default React.memo<KeyboardAvoidingViewProps>(props => {
-  const { children } = props;
-  const insets = useSafeAreaInsets();
+  const { bottomSafe, children } = props;
 
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
+  const insets = useSafeAreaInsets();
+
   useEffect(() => {
     const keyboardShowListener = Keyboard.addListener('keyboardWillShow', e => {
-      setKeyboardHeight(e.endCoordinates.height - insets.bottom);
+      setKeyboardHeight(e.endCoordinates.height - (bottomSafe ? insets.bottom : 0));
     });
     return () => keyboardShowListener.remove();
-  }, []);
+  }, [bottomSafe, insets]);
 
   useEffect(() => {
     const keyboardHideListener = Keyboard.addListener('keyboardWillHide', () => {
