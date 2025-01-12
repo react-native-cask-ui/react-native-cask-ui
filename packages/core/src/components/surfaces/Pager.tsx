@@ -13,6 +13,7 @@ import {
   Pressable,
 } from 'react-native';
 import { TabView, TabBar, SceneRendererProps, TabBarItemProps } from 'react-native-tab-view';
+
 import { useOverride } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
@@ -504,7 +505,8 @@ export default React.memo<Props>(props => {
                   },
                   contentContainerStyle: {
                     paddingTop: headerHeight + tabBarHeight,
-                    minHeight: tabViewHeight + collapsibleHeight,
+                    paddingBottom: headerHeight, // because flashlist not support minHeight, temporarily use paddingBottom
+                    // minHeight: tabViewHeight + collapsibleHeight,
                   },
                 }),
           })}
@@ -519,8 +521,8 @@ export default React.memo<Props>(props => {
       layoutReady,
       headerHeight,
       tabBarHeight,
-      tabViewHeight,
-      collapsibleHeight,
+      // tabViewHeight,
+      // collapsibleHeight,
       handleScroll,
       handleScrollBeginDrag,
     ],
