@@ -28,14 +28,13 @@
     "utility-types": "^3.10.0"
   },
   "devDependencies": {
-    "@types/react": "*",
-    "typescript": "^4.0.3"
   },
   "peerDependencies": {
     "react": "*",
     "react-dom": "*",
     "react-native": "*",
     "react-native-gesture-handler": "*",
-    "react-native-reanimated": "*"
+    "react-native-reanimated": "*",
+    "typescript": "*"
   }
 }

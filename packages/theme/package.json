@@ -19,12 +19,11 @@
     "shallow-equal": "^1.2.1"
   },
   "devDependencies": {
-    "@types/react": "*",
-    "typescript": "^4.0.3"
   },
   "peerDependencies": {
     "react": "*",
     "react-dom": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "typescript": "*"
   }
 }
