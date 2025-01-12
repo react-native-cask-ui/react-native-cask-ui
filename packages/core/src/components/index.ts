@@ -4,6 +4,8 @@ export { default as Badge } from './contents/Badge';
 export * from './contents/Badge';
 export { default as Image } from './contents/Image';
 export * from './contents/Image';
+export { default as Image2 } from './contents/Image2';
+export * from './contents/Image2';
 export { default as List } from './contents/List';
 export * from './contents/List';
 export { default as ListItem } from './contents/ListItem';
