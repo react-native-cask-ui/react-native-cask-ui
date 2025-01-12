@@ -1,2 +1,4 @@
 node_modules/
 coverage/
+.eslintrc.js
+jest.config.js
