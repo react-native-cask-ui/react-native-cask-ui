@@ -1,7 +1,8 @@
-import React, { ReactNode, useMemo } from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, View, StatusBar, StatusBarStyle } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useOverride, useMemoStyles, TStyle } from '@react-native-cask-ui/theme';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { useOverride, useMemoStyles } from '@react-native-cask-ui/theme';
 
 const defaultStyles = StyleSheet.create({
   root: {
@@ -20,43 +21,10 @@ const defaultStyles = StyleSheet.create({
   },
 });
 
-interface SafeAreaViewProps {
-  forceInset: {
-    top: 'always' | 'never';
-    bottom: 'always' | 'never';
-  };
-  style?: TStyle;
-  children: ReactNode;
-}
-
-const SafeAreaView = (props: SafeAreaViewProps) => {
-  const { forceInset, style, children } = props;
-
-  const insets = useSafeAreaInsets();
-
-  const safeAreaStyle = {
-    marginTop: 0,
-    marginBottom: 0,
-    marginRight: insets.right,
-    marginLeft: insets.left,
-  };
-
-  if (forceInset.top === 'always') {
-    safeAreaStyle.marginTop = insets.top;
-  }
-
-  if (forceInset.bottom === 'always') {
-    safeAreaStyle.marginBottom = insets.bottom;
-  }
-
-  return <View style={[safeAreaStyle, style]}>{children}</View>;
-};
-
-export interface ScreenProps {
+export type ScreenProps = {
   variant?: string;
   padding?: boolean;
-  topSafe?: boolean;
-  bottomSafe?: boolean;
+  edges?: ('top' | 'right' | 'bottom' | 'left')[];
   statusBar?: {
     barStyle?: StatusBarStyle;
     networkActivityIndicatorVisible?: boolean;
@@ -66,28 +34,24 @@ export interface ScreenProps {
     animated?: boolean;
     hidden?: boolean;
   };
+  extension?: ReactNode;
   children: ReactNode;
-}
+};
 
 export default React.memo<ScreenProps>(props => {
   const { props: overridedProps, styles } = useOverride('Screen', props);
-  const { padding, topSafe, bottomSafe, statusBar: statusBarProps, children } = overridedProps;
+  const { padding, edges = [], statusBar: statusBarProps, extension, children } = overridedProps;
 
   const finalStyle = useMemoStyles([defaultStyles.root, styles.root]);
   const finalSafeAreaStyle = useMemoStyles([defaultStyles.safeArea, styles.safeArea]);
   const finalInnerStyle = useMemoStyles([defaultStyles.inner, styles.inner, padding ? defaultStyles.padding : {}]);
 
-  const forceInset = useMemo(() => {
-    const top: 'always' | 'never' = topSafe ? 'always' : 'never';
-    const bottom: 'always' | 'never' = bottomSafe ? 'always' : 'never';
-    return { top, bottom };
-  }, [topSafe, bottomSafe]);
-
   return (
     <View style={finalStyle}>
-      <SafeAreaView forceInset={forceInset} style={finalSafeAreaStyle}>
+      <SafeAreaView edges={edges} style={finalSafeAreaStyle}>
         <View style={finalInnerStyle}>{children}</View>
       </SafeAreaView>
+      {extension}
       <StatusBar {...statusBarProps} />
     </View>
   );
