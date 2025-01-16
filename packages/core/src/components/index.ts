@@ -46,6 +46,8 @@ export * from './native/Toolbar';
 
 // Surfaces
 // display complex data on surface containers
+export { default as Accordion } from './surfaces/Accordion';
+export * from './surfaces/Accordion';
 export { default as Card } from './surfaces/Card';
 export * from './surfaces/Card';
 export { default as Modal } from './surfaces/Modal';
